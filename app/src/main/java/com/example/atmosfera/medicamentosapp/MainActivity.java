@@ -7,12 +7,15 @@ import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
 
 import com.example.atmosfera.medicamentosapp.adapters.ViewPagerAdapter;
+import com.example.atmosfera.medicamentosapp.fragments.DashboardFragment;
+import com.example.atmosfera.medicamentosapp.fragments.RegistroFragment;
+import com.example.atmosfera.medicamentosapp.fragments.SettingsFragment;
+import com.example.atmosfera.medicamentosapp.fragments.TomarHoyFragment;
 
 public class MainActivity extends AppCompatActivity {
 
     ViewPager viewPager;
     TabLayout tabLayout;
-    ViewPagerAdapter adapter;
     Toolbar toolbar;
 
     @Override
@@ -20,41 +23,23 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        precargarToolbar();
-
-        viewPager = (ViewPager) findViewById(R.id.viewpager);
-        tabLayout = (TabLayout) findViewById(R.id.tab_layout);
-
-        adapter = new ViewPagerAdapter(getSupportFragmentManager());
-        viewPager.setAdapter(adapter);
-
-        precargarTabLayout();
-
-        viewPager.addOnPageChangeListener(new TabLayout.TabLayoutOnPageChangeListener(tabLayout));
-    }
-
-    private void precargarTabLayout() {
-        final TabLayout.Tab dashboard = tabLayout.newTab();
-        final TabLayout.Tab tomarHoy = tabLayout.newTab();
-        final TabLayout.Tab registro = tabLayout.newTab();
-        final TabLayout.Tab settings = tabLayout.newTab();
-
-        dashboard.setText(R.string.tab_dashboard_name);
-        tomarHoy.setText(R.string.tab_tomarHoy_name);
-        registro.setText(R.string.tab_registro_name);
-        settings.setText(R.string.tab_config_name);
-
-        tabLayout.addTab(dashboard, 0);
-        tabLayout.addTab(tomarHoy, 1);
-        tabLayout.addTab(registro, 2);
-        tabLayout.addTab(settings, 3);
-    }
-
-    private void precargarToolbar(){
+        //Agregar custom ActionBar
         toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
-        //Volver atrás en el Toolbar
-        //getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        viewPager = (ViewPager) findViewById(R.id.viewpager);
+        setupViewPager(viewPager);
+
+        tabLayout = (TabLayout) findViewById(R.id.tab_layout);
+        tabLayout.setupWithViewPager(viewPager);
+    }
+
+    private void setupViewPager(ViewPager viewPager) {
+        ViewPagerAdapter adapter = new ViewPagerAdapter(getSupportFragmentManager());
+        adapter.addFragment(new DashboardFragment(),getResources().getString(R.string.tab_dashboard_title));
+        adapter.addFragment(new TomarHoyFragment(),getResources().getString(R.string.tab_tomarHoy_title));
+        adapter.addFragment(new RegistroFragment(),getResources().getString(R.string.tab_registro_title));
+        adapter.addFragment(new SettingsFragment(),getResources().getString(R.string.tab_config_title));
+        viewPager.setAdapter(adapter);
     }
 }

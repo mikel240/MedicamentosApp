@@ -9,7 +9,13 @@ import com.example.atmosfera.medicamentosapp.fragments.RegistroFragment;
 import com.example.atmosfera.medicamentosapp.fragments.SettingsFragment;
 import com.example.atmosfera.medicamentosapp.fragments.TomarHoyFragment;
 
+import java.util.ArrayList;
+import java.util.List;
+
 public class ViewPagerAdapter extends FragmentPagerAdapter {
+
+    private final List<Fragment> mFragmentList = new ArrayList<>();
+    private final List<String> mFragmentTitleList = new ArrayList<>();
 
     public ViewPagerAdapter(FragmentManager fm) {
         super(fm);
@@ -17,27 +23,22 @@ public class ViewPagerAdapter extends FragmentPagerAdapter {
 
     @Override
     public Fragment getItem(int position) {
-        Fragment frag = null;
-
-        switch (position) {
-            case 0:
-                frag = new DashboardFragment();
-                break;
-            case 1:
-                frag = new TomarHoyFragment();
-                break;
-            case 2:
-                frag = new RegistroFragment();
-                break;
-            case 3:
-                frag = new SettingsFragment();
-                break;
-        }
-        return frag;
+        return mFragmentList.get(position);
     }
 
     @Override
     public int getCount() {
-        return 4;
+        return mFragmentList.size();
+    }
+
+    public void addFragment(Fragment fragment, String title) {
+        mFragmentList.add(fragment);
+        mFragmentTitleList.add(title);
+    }
+
+    @Override
+    public CharSequence getPageTitle(int position) {
+        return mFragmentTitleList.get(position);
     }
 }
+
