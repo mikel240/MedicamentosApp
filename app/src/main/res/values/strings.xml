@@ -1,0 +1,10 @@
+<resources>
+    <string name="app_name">MedicamentosApp</string>
+
+    <!-- Utilizado en la precarga de los tabs -->
+    <string name="tab_dashboard_name">Medicamentos</string>
+    <string name="tab_tomarHoy_name">Tomar Hoy</string>
+    <string name="tab_registro_name">Registro</string>
+    <string name="tab_config_name">Ajustes</string>
+
+</resources>
