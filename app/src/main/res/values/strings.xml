@@ -3,7 +3,7 @@
 
     <!-- Tabs titles -->
     <string name="tab_dashboard_title">Añadir</string>
-    <string name="tab_tomarHoy_title">Tomar Hoy</string>
+    <string name="tab_tomarHoy_title">Hoy</string>
     <string name="tab_registro_title">Registro</string>
     <string name="tab_config_title">Ajustes</string>
 
