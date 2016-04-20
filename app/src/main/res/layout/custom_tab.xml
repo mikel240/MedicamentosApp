@@ -4,6 +4,6 @@
     android:layout_height="wrap_content"
    android:textAlignment="center"
     android:id="@+id/tab"
-    android:textColor="@color/colorAccent"
+    android:textColor="@drawable/text_color_selector"
     android:textSize="15dp"
     android:fontFamily="sans-serif"/>

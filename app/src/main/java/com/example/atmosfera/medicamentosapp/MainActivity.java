@@ -50,26 +50,29 @@ public class MainActivity extends AppCompatActivity {
         //tab dashboard
         TextView tabOne = (TextView) LayoutInflater.from(this).inflate(R.layout.custom_tab, null);
         tabOne.setText(getResources().getString(R.string.tab_dashboard_title));
-        tabOne.setCompoundDrawablesWithIntrinsicBounds(0, R.drawable.icon_add, 0, 0);
+        tabOne.setCompoundDrawablesWithIntrinsicBounds(0, R.drawable.icon_add_selector, 0, 0);
         tabLayout.getTabAt(0).setCustomView(tabOne);
 
         //tab tomarHoy
         TextView tabTwo = (TextView) LayoutInflater.from(this).inflate(R.layout.custom_tab, null);
         tabTwo.setText(getResources().getString(R.string.tab_tomarHoy_title));
-        tabTwo.setCompoundDrawablesWithIntrinsicBounds(0, R.drawable.icon_capsule, 0, 0);
+        tabTwo.setCompoundDrawablesWithIntrinsicBounds(0, R.drawable.icon_capsule_selector, 0, 0);
         tabLayout.getTabAt(1).setCustomView(tabTwo);
 
         //tab registro
         TextView tabThree = (TextView) LayoutInflater.from(this).inflate(R.layout.custom_tab, null);
         tabThree.setText(getResources().getString(R.string.tab_registro_title));
-        tabThree.setCompoundDrawablesWithIntrinsicBounds(0, R.drawable.icon_diary, 0, 0);
+        tabThree.setCompoundDrawablesWithIntrinsicBounds(0, R.drawable.icon_diary_selector, 0, 0);
         tabLayout.getTabAt(2).setCustomView(tabThree);
 
         //tab ajustes
         TextView tabFour = (TextView) LayoutInflater.from(this).inflate(R.layout.custom_tab, null);
         tabFour.setText(getResources().getString(R.string.tab_config_title));
-        tabFour.setCompoundDrawablesWithIntrinsicBounds(0, R.drawable.icon_settings, 0, 0);
+        tabFour.setCompoundDrawablesWithIntrinsicBounds(0, R.drawable.icon_settings_selector, 0, 0);
         tabLayout.getTabAt(3).setCustomView(tabFour);
 
+        //Por defecto la tab del dashboard está selected (soluciona problemas del selector, ya que la primera tab
+        //no cambiaba de color)
+        tabLayout.getTabAt(0).getCustomView().setSelected(true);
     }
 }

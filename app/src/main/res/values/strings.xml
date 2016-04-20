@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">MedicamentosApp</string>
+    <string name="app_name">CapsulaApp</string>
 
     <!-- Tabs titles -->
     <string name="tab_dashboard_title">Añadir</string>
