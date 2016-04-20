@@ -4,4 +4,23 @@ android:orientation="vertical" android:layout_width="match_parent"
 android:layout_height="match_parent">
 
 
+    <ImageView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/add"
+        android:src="@drawable/add_dash"
+        android:layout_alignParentTop="true"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="93dp" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textSize="40px"
+        android:fontFamily="sans-serif"
+        android:textColor="#c95631"
+        android:text="@string/add_text"
+        android:id="@+id/add_text"
+        android:layout_below="@+id/add"
+        android:layout_centerHorizontal="true" />
 </RelativeLayout>
