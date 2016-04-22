@@ -8,6 +8,7 @@
     <string name="tab_config_title">Ajustes</string>
 
 
-    <string name="add_text">Añadir Medicación</string>
+    <string name="add_medication">Añadir Medicación</string>
+    <string name="modify_medication">Modificar Medicación</string>
 
 </resources>

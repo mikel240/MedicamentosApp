@@ -51,7 +51,7 @@ public class MainActivity extends AppCompatActivity {
         //tab dashboard
         TextView tabOne = (TextView) LayoutInflater.from(this).inflate(R.layout.custom_tab, null);
         tabOne.setText(getResources().getString(R.string.tab_dashboard_title));
-        tabOne.setCompoundDrawablesWithIntrinsicBounds(0, R.drawable.icon_add_selector, 0, 0);
+        tabOne.setCompoundDrawablesWithIntrinsicBounds(0,R.drawable.icon_add_selector, 0, 0);
         tabLayout.getTabAt(0).setCustomView(tabOne);
 
         //tab tomarHoy
