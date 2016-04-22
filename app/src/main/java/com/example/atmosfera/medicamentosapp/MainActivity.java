@@ -1,11 +1,13 @@
 package com.example.atmosfera.medicamentosapp;
 
+import android.content.Intent;
 import android.support.design.widget.TabLayout;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
 import android.view.LayoutInflater;
+import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
 import android.widget.TextView;
@@ -51,7 +53,7 @@ public class MainActivity extends AppCompatActivity {
         //tab dashboard
         TextView tabOne = (TextView) LayoutInflater.from(this).inflate(R.layout.custom_tab, null);
         tabOne.setText(getResources().getString(R.string.tab_dashboard_title));
-        tabOne.setCompoundDrawablesWithIntrinsicBounds(0,R.drawable.icon_add_selector, 0, 0);
+        tabOne.setCompoundDrawablesWithIntrinsicBounds(0, R.drawable.icon_add_selector, 0, 0);
         tabLayout.getTabAt(0).setCustomView(tabOne);
 
         //tab tomarHoy
@@ -76,4 +78,5 @@ public class MainActivity extends AppCompatActivity {
         //no cambiaba de color)
         tabLayout.getTabAt(0).getCustomView().setSelected(true);
     }
+
 }

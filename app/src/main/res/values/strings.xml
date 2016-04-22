@@ -7,8 +7,14 @@
     <string name="tab_registro_title">Registro</string>
     <string name="tab_config_title">Ajustes</string>
 
-
+    <!-- DashButtons strings -->
     <string name="add_medication">Añadir Medicación</string>
     <string name="modify_medication">Modificar Medicación</string>
+
+    <!-- Add Form strings  -->
+    <string name="name_form_add">Nombre</string>
+    <string name="via_form_add">Vía de administración</string>
+    <string name="toolbar_title_add">Añadir Medicamento</string>
+
 
 </resources>
