@@ -7,11 +7,14 @@
     tools:context="com.example.atmosfera.medicamentosapp.AddFormActivity">
 
     <android.support.v7.widget.Toolbar
-        style="@style/CustomToolbar"
         android:id="@+id/toolbar"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/colorPrimary"
         app:layout_scrollFlags="scroll|enterAlways"
         app:popupTheme="@style/ThemeOverlay.AppCompat.Light"
-        />
+        app:theme="@style/CustomToolbar"
+        app:titleTextColor="@color/colorAccent" />
 
     <RelativeLayout
         android:layout_width="match_parent"
@@ -25,15 +28,61 @@
         android:paddingTop="@dimen/activity_vertical_margin">
 
         <EditText
+            android:id="@+id/name"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:id="@+id/editText"
+            android:layout_alignParentEnd="true"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentRight="true"
+            android:layout_alignParentStart="true"
             android:layout_alignParentTop="true"
+            android:hint="@string/name_form_add"
+            android:inputType="textPersonName"
+            android:theme="@style/EditText" />
+
+        <android.support.v4.view.ViewPager
+            android:id="@+id/viewpager"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_above="@+id/via"
             android:layout_alignParentLeft="true"
             android:layout_alignParentStart="true"
-            android:layout_alignParentRight="true"
-            android:layout_alignParentEnd="true"
-            android:hint="@string/name_form_add"/>
+            android:layout_below="@+id/name"
+            app:layout_behavior="@string/appbar_scrolling_view_behavior"
+            android:layout_marginTop="60px" />
+
+        <EditText
+            android:id="@+id/via"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentStart="true"
+            android:layout_centerVertical="true"
+            android:ems="10"
+            android:inputType="textPersonName"
+            android:hint="@string/via_form_add"
+            android:theme="@style/EditText"/>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textAppearance="?android:attr/textAppearanceLarge"
+            android:text="@string/text_viewpager"
+            android:id="@+id/apariencia"
+            android:layout_below="@+id/name"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentStart="true" />
+
+        <Button
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/frecuencia_btn"
+            android:id="@+id/btnFrecuencia"
+            android:layout_alignParentBottom="true"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentStart="true"
+            android:layout_alignRight="@+id/via"
+            android:layout_alignEnd="@+id/via" />
 
     </RelativeLayout>
 

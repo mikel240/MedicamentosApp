@@ -15,6 +15,11 @@
     <string name="name_form_add">Nombre</string>
     <string name="via_form_add">Vía de administración</string>
     <string name="toolbar_title_add">Añadir Medicamento</string>
+    <string name="text_viewpager">Apariencia</string>
+    <string name="frecuencia_btn">Frecuencia</string>
+
+
+
 
 
 </resources>

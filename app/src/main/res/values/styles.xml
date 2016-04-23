@@ -7,7 +7,9 @@
      <item name="colorAccent">@color/colorAccent</item>
     </style>-->
 
-    <style name="MyMaterialTheme" parent="MyMaterialTheme.Base"></style>
+    <style name="MyMaterialTheme" parent="MyMaterialTheme.Base">
+
+    </style>
 
     <style name="MyMaterialTheme.Base" parent="Theme.AppCompat.Light.DarkActionBar">
         <item name="windowNoTitle">true</item>
@@ -15,6 +17,7 @@
         <item name="colorPrimary">@color/colorPrimary</item>
         <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
         <item name="colorAccent">@color/colorAccent</item>
+
     </style>
 
 
@@ -29,10 +32,13 @@
     app:popupTheme="@style/ThemeOverlay.AppCompat.Light"
     />
     -->
-    <style name="CustomToolbar">
-        <item name="android:layout_width">match_parent</item>
-        <item name="android:layout_height">?attr/actionBarSize</item>
-        <item name="android:background">?attr/colorPrimary</item>
+    <style name="CustomToolbar" parent="Theme.AppCompat.Light.DarkActionBar">
+        <item name="colorControlNormal">@color/colorAccent</item>
     </style>
 
+    <style name="EditText">
+        <item name="backgroundTint">#FF0000</item>
+        <item name="colorControlHighlight">#000000</item>
+        <item name="colorControlActivated">#000000</item>
+    </style>
 </resources>
