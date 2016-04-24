@@ -22,7 +22,8 @@
         <activity android:name=".AddFormActivity" />
         <activity android:name=".fragments.Image1SliderFragment" />
         <activity android:name=".fragments.Image2SliderFragment" />
-        <activity android:name=".fragments.Image3SliderFragment"></activity>
+        <activity android:name=".fragments.Image3SliderFragment" />
+        <activity android:name=".FrecuenciaActivity"></activity>
     </application>
 
 </manifest>

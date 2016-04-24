@@ -28,7 +28,7 @@
     </string-array>
 
 
-
-
+    <!-- Frecuencia Form strings  -->
+    <string name="toolbar_title_frecuencia">Frecuencia</string>
 
 </resources>
