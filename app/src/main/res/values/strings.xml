@@ -17,7 +17,7 @@
     <string name="toolbar_title_add">Añadir Medicamento</string>
     <string name="text_viewpager">Apariencia</string>
     <string name="frec_btn">Frecuencia</string>
-    <string name="txt_via">Vía de administración:</string>
+    <string name="txt_via">Vía de administración</string>
     <string-array name="vias_array">
         <item>Intramuscular</item>
         <item>Sublingual</item>
@@ -30,5 +30,27 @@
 
     <!-- Frecuencia Form strings  -->
     <string name="toolbar_title_frecuencia">Frecuencia</string>
+    <string name="intervalo_txt">Intervalo</string>
+    <string name="duracion_txt">Duración</string>
+    <string name="horario_txt">Horario Primera Ingesta</string>
+
+    <string-array name="intervalos_array">
+        <item>Diario</item>
+        <item>Semanal</item>
+        <item>Mensual</item>
+        <item>15 Días</item>
+        <item>8 Horas</item>
+    </string-array>
+
+    <string-array name="duracion_array">
+        <item>1 Semana</item>
+        <item>15 Días</item>
+        <item>1 Mes</item>
+        <item>6 Meses</item>
+        <item>1 Año</item>
+        <item>Indefinida</item>
+    </string-array>
+
+
 
 </resources>
