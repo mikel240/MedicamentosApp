@@ -41,4 +41,11 @@
         <item name="colorControlHighlight">#000000</item>
         <item name="colorControlActivated">#000000</item>
     </style>
+
+
+    <style name="TextView">
+        <item name="android:textColor">#FF0000</item>
+        <item name="android:textSize">36px</item>
+    </style>
+
 </resources>

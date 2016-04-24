@@ -16,7 +16,16 @@
     <string name="via_form_add">Vía de administración</string>
     <string name="toolbar_title_add">Añadir Medicamento</string>
     <string name="text_viewpager">Apariencia</string>
-    <string name="frecuencia_btn">Frecuencia</string>
+    <string name="frec_btn">Frecuencia</string>
+    <string name="txt_via">Vía de administración:</string>
+    <string-array name="vias_array">
+        <item>Intramuscular</item>
+        <item>Sublingual</item>
+        <item>Intravenosa</item>
+        <item>Oral</item>
+        <item>Rectal</item>
+        <item>Respiratoria</item>
+    </string-array>
 
 
 

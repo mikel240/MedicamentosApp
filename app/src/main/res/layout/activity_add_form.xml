@@ -40,49 +40,78 @@
             android:inputType="textPersonName"
             android:theme="@style/EditText" />
 
-        <android.support.v4.view.ViewPager
-            android:id="@+id/viewpager"
+        <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:layout_above="@+id/via"
-            android:layout_alignParentLeft="true"
-            android:layout_alignParentStart="true"
-            android:layout_below="@+id/name"
-            app:layout_behavior="@string/appbar_scrolling_view_behavior"
-            android:layout_marginTop="60px" />
-
-        <EditText
-            android:id="@+id/via"
-            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_alignParentLeft="true"
-            android:layout_alignParentStart="true"
-            android:layout_centerVertical="true"
-            android:ems="10"
-            android:inputType="textPersonName"
-            android:hint="@string/via_form_add"
-            android:theme="@style/EditText"/>
-
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:textAppearance="?android:attr/textAppearanceLarge"
-            android:text="@string/text_viewpager"
-            android:id="@+id/apariencia"
+            android:layout_above="@+id/linearLayout"
             android:layout_below="@+id/name"
-            android:layout_alignParentLeft="true"
-            android:layout_alignParentStart="true" />
+            android:orientation="vertical">
+
+            <TextView
+                android:id="@+id/apariencia"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentLeft="true"
+                android:layout_alignParentStart="true"
+                android:layout_marginTop="20px"
+                android:text="@string/text_viewpager"
+                android:textAppearance="?android:attr/textAppearanceLarge"
+                android:theme="@style/TextView" />
+
+            <android.support.v4.view.ViewPager
+                android:id="@+id/viewpager"
+                android:layout_width="match_parent"
+                android:layout_height="223dp"
+
+                android:layout_alignParentLeft="true"
+                android:layout_alignParentStart="true"
+                android:layout_marginBottom="20px"
+                app:layout_behavior="@string/appbar_scrolling_view_behavior" />
+
+            <LinearLayout
+                android:id="@+id/linearLayout"
+                android:orientation="vertical"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_alignParentBottom="true"
+                android:layout_alignParentLeft="true"
+                android:layout_alignParentStart="true">
+
+                <TextView
+                    android:id="@+id/txt_via"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/txt_via"
+                    android:textAppearance="?android:attr/textAppearanceLarge"
+                    android:theme="@style/TextView" />
+
+                <Spinner
+                    android:id="@+id/via"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignLeft="@+id/btnFrecuencia"
+                    android:layout_alignParentEnd="true"
+                    android:layout_alignParentRight="true"
+                    android:layout_alignStart="@+id/btnFrecuencia"
+                    android:spinnerMode="dialog" />
+
+            </LinearLayout>
+
+
+        </LinearLayout>
 
         <Button
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="@string/frecuencia_btn"
             android:id="@+id/btnFrecuencia"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/frec_btn"
+            android:textColor="#FF0000"
+            android:padding="70px"
             android:layout_alignParentBottom="true"
             android:layout_alignParentLeft="true"
             android:layout_alignParentStart="true"
-            android:layout_alignRight="@+id/via"
-            android:layout_alignEnd="@+id/via" />
+            android:layout_marginBottom="20px" />
+
 
     </RelativeLayout>
 
