@@ -23,7 +23,6 @@ public class AddFormActivity extends AppCompatActivity {
 
     Toolbar toolbar;
     ViewPager viewPager;
-    Spinner spinner;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
