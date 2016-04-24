@@ -35,13 +35,11 @@ public class FrecuenciaActivity extends AppCompatActivity {
         getSupportActionBar().setDisplayShowHomeEnabled(true);
 
         //TimePicker
-        showTimePickerDialog();
         textHora = (TextView) findViewById(R.id.text_hora);
+        showTimePickerDialog();
 
         //cargar Spinners
         setupSpinners();
-
-
     }
 
     @Override
@@ -101,6 +99,13 @@ public class FrecuenciaActivity extends AppCompatActivity {
         // Apply the adapter to the spinner
         spinner.setAdapter(adapter);
         spinner2.setAdapter(adapter2);
+    }
+
+    public void anyadirMedicamento(View v) {
+        if (textHora.length() != 0) {
+            //Añadir medicamento
+        } else
+            Toast.makeText(FrecuenciaActivity.this,getResources().getString(R.string.campo_selecc_hora_vacio),Toast.LENGTH_LONG).show();
     }
 
 }

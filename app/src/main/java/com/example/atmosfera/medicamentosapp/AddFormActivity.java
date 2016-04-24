@@ -9,6 +9,8 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.Spinner;
+import android.widget.TextView;
+import android.widget.Toast;
 
 import com.example.atmosfera.medicamentosapp.adapters.ViewPagerAdapter;
 import com.example.atmosfera.medicamentosapp.fragments.DashboardFragment;
@@ -39,6 +41,7 @@ public class AddFormActivity extends AppCompatActivity {
         viewPager = (ViewPager) findViewById(R.id.viewpager);
         setupViewPager(viewPager);
 
+        //Precargar Spinner
         setupSpinnerVia();
     }
 
@@ -73,8 +76,13 @@ public class AddFormActivity extends AppCompatActivity {
     }
 
     public void openFrecuenciaActivity(View v){
-        Intent in = new Intent(this, FrecuenciaActivity.class);
-        startActivity(in);
+        TextView textName = (TextView) findViewById(R.id.name);
+        if(textName.length() != 0){
+            Intent in = new Intent(this, FrecuenciaActivity.class);
+            startActivity(in);
+        }
+        else
+            Toast.makeText(AddFormActivity.this,getResources().getString(R.string.campo_name_vacio),Toast.LENGTH_LONG).show();
     }
 
 }

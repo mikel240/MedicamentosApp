@@ -33,6 +33,7 @@
             android:layout_height="wrap_content"
             android:layout_alignParentLeft="true"
             android:layout_alignParentStart="true"
+            android:layout_marginBottom="30px"
             android:orientation="vertical">
 
             <TextView
@@ -49,7 +50,7 @@
                 android:id="@+id/spinner_intervalo"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:spinnerMode="dialog"/>
+                android:spinnerMode="dialog" />
 
         </LinearLayout>
 
@@ -58,6 +59,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_below="@+id/linearLayout1"
+            android:layout_marginBottom="30px"
             android:orientation="vertical">
             >
 
@@ -78,14 +80,15 @@
                 android:layout_alignParentLeft="true"
                 android:layout_alignParentStart="true"
                 android:layout_below="@+id/linearLayout1"
-                android:spinnerMode="dialog"/>
+                android:spinnerMode="dialog" />
         </LinearLayout>
 
         <LinearLayout
+            android:id="@+id/linearLayout3"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_above="@+id/buttonDone"
             android:layout_below="@+id/linearLayout2"
+            android:layout_marginBottom="30px"
             android:orientation="vertical">
 
             <TextView
@@ -109,35 +112,37 @@
                     android:id="@+id/button_selec"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="@string/btn_seleccionar_horario"
                     android:layout_marginEnd="40px"
-                    android:layout_marginRight="40px"/>
+                    android:layout_marginRight="40px"
+                    android:text="@string/btn_selecc" />
 
                 <TextView
                     android:id="@+id/text_hora"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="12px"
-android:text="aaaaaa"
                     android:textAppearance="?android:attr/textAppearanceMedium"
-                    android:textSize="60px"
-                    android:textColor="#000000"/>
+                    android:textColor="#000000"
+                    android:textSize="60px" />
             </LinearLayout>
 
         </LinearLayout>
 
-        <Button
-            android:id="@+id/buttonDone"
+        <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_alignParentBottom="true"
-            android:layout_alignParentLeft="true"
-            android:layout_alignParentStart="true"
-            android:layout_marginBottom="112dp"
-            android:padding="70px"
-            android:text="@string/btn_done"
-            android:textColor="#FF0000" />
+            android:layout_below="@+id/linearLayout3"
+            android:orientation="horizontal">
 
+            <Button
+                android:id="@+id/buttonDone"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:onClick="anyadirMedicamento"
+                android:padding="55px"
+                android:text="@string/btn_done"
+                android:textColor="#FF0000" />
+        </LinearLayout>
 
     </RelativeLayout>
 
