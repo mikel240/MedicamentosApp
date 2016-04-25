@@ -8,14 +8,15 @@ import android.database.sqlite.SQLiteOpenHelper;
 
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.StringTokenizer;
 
 public class SqlHelper extends SQLiteOpenHelper {
 
     private static final String DATABASE_NAME = "medicamentos.db";
     private static final int DATABASE_VERSION = 1;
 
-    private static final String SQL_CREATE_ALERT = "CREATE TABLE aviso(_idAviso INTEGER PRIMARY KEY AUTOINCREMENT, idMedicamento INTEGER, fechaHora TEXT);";
-    private static final String SQL_CREATE_MEDICATION = "CREATE TABLE medicamento(_idMedicamento INTEGER PRIMARY KEY AUTOINCREMENT, nombre TEXT, tipo INTEGER, color INTEGER, intervalo INTEGER, fechaInicio TEXT, fechaFin TEXT);";
+    private static final String SQL_CREATE_MEDICATION = "CREATE TABLE medicamento(_idMedicamento INTEGER PRIMARY KEY AUTOINCREMENT, nombre TEXT, forma INTEGER, color INTEGER, fechaInicio TEXT, fechaFin TEXT, intervalo INTEGER);";
+    private static final String SQL_CREATE_ALERT = "CREATE TABLE aviso(_idAviso INTEGER PRIMARY KEY AUTOINCREMENT, idMedicamento INTEGER, fechaAviso TEXT, horaAviso TEXT, tomado INTEGER);";
 
     // Singleton pattern to centralize access to the database
     private static SqlHelper instance;
@@ -65,7 +66,7 @@ public class SqlHelper extends SQLiteOpenHelper {
     Get ArrayList<HashMap<String,String>> object with all the items stored
     in the database to generate the data source to be later linked to a ListView:
     */
-    public ArrayList<HashMap<String, String>> getMedicamentos(Context context) {
+    public ArrayList<HashMap<String, String>> getAvisosFecha(String fecha) {
 
         ArrayList<HashMap<String, String>> result = new ArrayList<>();
         HashMap<String, String> item;
@@ -98,32 +99,60 @@ public class SqlHelper extends SQLiteOpenHelper {
     /*
     Insert a new item into the database
     */
-    public void addMedicamento(String name, int medicamento) {
+    public void addMedicamento(String nombre, String forma, String color, String fechaInicioToma, String fechaFinToma, int intervalo) {
 
         // Get access to the database in write mode
         SQLiteDatabase db = getWritableDatabase();
 
         // Insert the new item into the table (autoincremental id)
         ContentValues values = new ContentValues();
-        values.put("name", name);
-        values.put("medicamento", medicamento);
-        db.insert("medicamentos", null, values);
+        values.put("nombre", nombre);
+        values.put("forma", forma);
+        values.put("color", color);
+        values.put("fechaInicioToma", fechaInicioToma);
+        values.put("fechaFinToma", fechaFinToma);
+        values.put("intervalo", intervalo);
+        db.insert("medicamento", null, values);
 
         // Close the database helper
         db.close();
     }
-    /*
-    Insert a new item into the database
-    */
-    public void addAvisos(int medicamento) {
+
+    public void editMedicamento(int medicamento, String nombre, String forma, String color, String fechaInicioToma, String fechaFinToma, int intervalo) {
 
         // Get access to the database in write mode
         SQLiteDatabase db = getWritableDatabase();
 
         // Insert the new item into the table (autoincremental id)
         ContentValues values = new ContentValues();
-        values.put("medicamento", medicamento);
-        db.insert("medicamentos", null, values);
+        values.put("nombre", nombre);
+        values.put("forma", forma);
+        values.put("color", color);
+        values.put("fechaInicioToma", fechaInicioToma);
+        values.put("fechaFinToma", fechaFinToma);
+        values.put("intervalo", intervalo);
+        db.insert("medicamento", null, values);
+
+        // Close the database helper
+        db.close();
+    }
+
+    /*
+    Insert a new item into the database
+    */
+    public void addAvisos(int medicamento, String fecha, String hora, boolean tomado) {
+
+        // Get access to the database in write mode
+        SQLiteDatabase db = getWritableDatabase();
+
+        // Insert the new item into the table (autoincremental id)
+        ContentValues values = new ContentValues();
+        values.put("idMedicamento", medicamento);
+        values.put("fechaAviso", fecha);
+        values.put("horaAviso", hora);
+        values.put("tomado", tomado);
+
+        db.insert("aviso", null, values);
 
         // Close the database helper
         db.close();
@@ -133,13 +162,29 @@ public class SqlHelper extends SQLiteOpenHelper {
     /*
     Remove all entries from the database
     */
-    public void deleteAllMedicamentos(Context context) {
+    public void deleteAvisosMedicamento(int medicamento) {
 
         // Get access to the database in write mode
         SQLiteDatabase db = getWritableDatabase();
 
         // Delete all entries from the table
-        db.execSQL("DELETE FROM medicamentos;");
+        db.execSQL("DELETE FROM aviso WHERE idMedicamento=" + medicamento + ";");
+
+        // Close the database helper
+        db.close();
+    }
+
+
+    /*
+    Remove all entries from the database
+    */
+    public void deleteAllAvisos() {
+
+        // Get access to the database in write mode
+        SQLiteDatabase db = getWritableDatabase();
+
+        // Delete all entries from the table
+        db.execSQL("DELETE FROM aviso;");
 
         // Close the database helper
         db.close();
