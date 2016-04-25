@@ -6,17 +6,30 @@ import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 
+import com.example.atmosfera.medicamentosapp.pojo.Aviso;
+
 import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.StringTokenizer;
 
 public class SqlHelper extends SQLiteOpenHelper {
 
     private static final String DATABASE_NAME = "medicamentos.db";
     private static final int DATABASE_VERSION = 1;
 
-    private static final String SQL_CREATE_MEDICATION = "CREATE TABLE medicamento(_idMedicamento INTEGER PRIMARY KEY AUTOINCREMENT, nombre TEXT, forma INTEGER, color INTEGER, fechaInicio TEXT, fechaFin TEXT, intervalo INTEGER);";
-    private static final String SQL_CREATE_ALERT = "CREATE TABLE aviso(_idAviso INTEGER PRIMARY KEY AUTOINCREMENT, idMedicamento INTEGER, fechaAviso TEXT, horaAviso TEXT, tomado INTEGER);";
+    private static final String SQL_CREATE_MEDICATION = "CREATE TABLE medicamento(" +
+            "idMedicamento INTEGER PRIMARY KEY AUTOINCREMENT, " +
+            "nombre TEXT, " +
+            "forma INTEGER, " +
+            "color INTEGER, " +
+            "fechaInicio TEXT, " +
+            "fechaFin TEXT, " +
+            "intervalo INTEGER);";
+
+    private static final String SQL_CREATE_ALERT = "CREATE TABLE aviso(" +
+            "idAviso INTEGER PRIMARY KEY AUTOINCREMENT, " +
+            "idMedicamento INTEGER, " +
+            "fechaAviso TEXT, " +
+            "horaAviso TEXT, " +
+            "tomado INTEGER);";
 
     // Singleton pattern to centralize access to the database
     private static SqlHelper instance;
@@ -62,28 +75,28 @@ public class SqlHelper extends SQLiteOpenHelper {
         //onCreate(db);
     }
 
-    /*
-    Get ArrayList<HashMap<String,String>> object with all the items stored
-    in the database to generate the data source to be later linked to a ListView:
-    */
-    public ArrayList<HashMap<String, String>> getAvisosFecha(String fecha) {
 
-        ArrayList<HashMap<String, String>> result = new ArrayList<>();
-        HashMap<String, String> item;
+    public ArrayList<Aviso> getAvisosFecha(String fecha) {
+
+        ArrayList<Aviso> result = new ArrayList<>();
+        Aviso item;
 
         // Get access to the database in read mode
         SQLiteDatabase db = getReadableDatabase();
 
         // Query the table to get the text and author for all existing entries
-        Cursor cursor = db.rawQuery("SELECT * FROM medicamentos;", null);
+        Cursor cursor = db.rawQuery("SELECT * FROM medicamento WHERE fechaAviso='" + fecha + "';", null);
 
         // Go through the resulting cursor
         while (cursor.moveToNext()) {
 
-            // Create a HashMap<String, String> object for the given entry in the database
-            item = new HashMap<>();
-            item.put("name", cursor.getString(0));
-            item.put("medicamento", cursor.getString(1));
+            // Create a object for the given entry in the database
+            item = new Aviso();
+            item.setIdAviso(cursor.getInt(0));
+            item.setIdMedicamento(cursor.getInt(1));
+            item.setFechaAviso(cursor.getString(2));
+            item.setHoraAviso(cursor.getString(3));
+            item.setTomado(cursor.getInt(4) == 1);
 
             // Add the object to the result list
             result.add(item);
@@ -96,9 +109,7 @@ public class SqlHelper extends SQLiteOpenHelper {
         return result;
     }
 
-    /*
-    Insert a new item into the database
-    */
+
     public void addMedicamento(String nombre, String forma, String color, String fechaInicioToma, String fechaFinToma, int intervalo) {
 
         // Get access to the database in write mode
@@ -135,11 +146,10 @@ public class SqlHelper extends SQLiteOpenHelper {
 
         // Close the database helper
         db.close();
+
+        //VASILON
     }
 
-    /*
-    Insert a new item into the database
-    */
     public void addAvisos(int medicamento, String fecha, String hora, boolean tomado) {
 
         // Get access to the database in write mode
@@ -158,10 +168,6 @@ public class SqlHelper extends SQLiteOpenHelper {
         db.close();
     }
 
-
-    /*
-    Remove all entries from the database
-    */
     public void deleteAvisosMedicamento(int medicamento) {
 
         // Get access to the database in write mode
@@ -175,9 +181,6 @@ public class SqlHelper extends SQLiteOpenHelper {
     }
 
 
-    /*
-    Remove all entries from the database
-    */
     public void deleteAllAvisos() {
 
         // Get access to the database in write mode
@@ -190,4 +193,15 @@ public class SqlHelper extends SQLiteOpenHelper {
         db.close();
     }
 
+
+    public void tester() {
+        SQLiteDatabase db = getReadableDatabase();
+        Cursor cursor = db.rawQuery("SELECT fechaAviso, datetime(fechaAviso) FROM aviso;", null);
+        int i = 0;
+        while (cursor.moveToNext()) {
+            System.out.println("Vasil: " + (i++) + " " + cursor.getString(0) + " " + cursor.getString(1));
+        }
+        cursor.close();
+        db.close();
+    }
 }
