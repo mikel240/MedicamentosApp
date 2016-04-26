@@ -8,6 +8,7 @@ import android.support.v7.widget.Toolbar;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.ArrayAdapter;
+import android.widget.EditText;
 import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -75,14 +76,20 @@ public class AddFormActivity extends AppCompatActivity {
         spinner.setAdapter(adapter);
     }
 
-    public void openFrecuenciaActivity(View v){
-        TextView textName = (TextView) findViewById(R.id.name);
-        if(textName.length() != 0){
-            Intent in = new Intent(this, FrecuenciaActivity.class);
+    public void openFrecuenciaActivity(View v) {
+        String nombre = ((EditText) findViewById(R.id.name)).getText().toString();
+        int forma = ((ViewPager) findViewById(R.id.viewpager)).getCurrentItem();
+        String via = ((Spinner) findViewById(R.id.via)).getSelectedItem().toString();
+
+        if (nombre.length() != 0) {
+            Intent in = new Intent(this, FrecuenciaActivity.class).
+                    putExtra("nombre", nombre).
+                    putExtra("forma", forma).
+                    putExtra("via", via);
             startActivity(in);
+        } else {
+            Toast.makeText(AddFormActivity.this, getResources().getString(R.string.campo_name_vacio), Toast.LENGTH_LONG).show();
         }
-        else
-            Toast.makeText(AddFormActivity.this,getResources().getString(R.string.campo_name_vacio),Toast.LENGTH_LONG).show();
     }
 
 }

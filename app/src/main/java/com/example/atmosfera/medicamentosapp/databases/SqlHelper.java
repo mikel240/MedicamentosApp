@@ -19,9 +19,10 @@ public class SqlHelper extends SQLiteOpenHelper {
             "idMedicamento INTEGER PRIMARY KEY AUTOINCREMENT, " +
             "nombre TEXT, " +
             "forma INTEGER, " +
-            "color INTEGER, " +
-            "fechaInicio TEXT, " +
-            "fechaFin TEXT, " +
+            "via TEXT, " +
+            "horaPrimeraIngesta TEXT, " +
+            "fechaInicioIngesta TEXT, " +
+            "duracion INTEGER, " +
             "intervalo INTEGER);";
 
     private static final String SQL_CREATE_ALERT = "CREATE TABLE aviso(" +
@@ -110,7 +111,7 @@ public class SqlHelper extends SQLiteOpenHelper {
     }
 
 
-    public void addMedicamento(String nombre, String forma, String color, String fechaInicioToma, String fechaFinToma, int intervalo) {
+    public void addMedicamento(String nombre, int forma, String via, String horaPrimeraIngesta, String fechaInicioIngesta, int duracion, int intervalo) {
 
         // Get access to the database in write mode
         SQLiteDatabase db = getWritableDatabase();
@@ -119,9 +120,10 @@ public class SqlHelper extends SQLiteOpenHelper {
         ContentValues values = new ContentValues();
         values.put("nombre", nombre);
         values.put("forma", forma);
-        values.put("color", color);
-        values.put("fechaInicioToma", fechaInicioToma);
-        values.put("fechaFinToma", fechaFinToma);
+        values.put("via", via);
+        values.put("horaPrimeraIngesta", horaPrimeraIngesta);
+        values.put("fechaInicioIngesta", fechaInicioIngesta);
+        values.put("duracion", duracion);
         values.put("intervalo", intervalo);
         db.insert("medicamento", null, values);
 
@@ -129,25 +131,28 @@ public class SqlHelper extends SQLiteOpenHelper {
         db.close();
     }
 
-    public void editMedicamento(int medicamento, String nombre, String forma, String color, String fechaInicioToma, String fechaFinToma, int intervalo) {
+    public void editMedicamento(int medicamento, String nombre, int forma, String via, String horaPrimeraIngesta, String fechaInicioIngesta, int duracion, int intervalo) {
 
         // Get access to the database in write mode
         SQLiteDatabase db = getWritableDatabase();
 
-        // Insert the new item into the table (autoincremental id)
+        // Update item
         ContentValues values = new ContentValues();
         values.put("nombre", nombre);
         values.put("forma", forma);
-        values.put("color", color);
-        values.put("fechaInicioToma", fechaInicioToma);
-        values.put("fechaFinToma", fechaFinToma);
+        values.put("via", via);
+        values.put("horaPrimeraIngesta", horaPrimeraIngesta);
+        values.put("fechaInicioIngesta", fechaInicioIngesta);
+        values.put("duracion", duracion);
         values.put("intervalo", intervalo);
-        db.insert("medicamento", null, values);
+
+        db.update("medicamento", values, "idMedicamento=" + medicamento, null);
 
         // Close the database helper
         db.close();
 
-        //VASILON
+        deleteAvisosMedicamento(medicamento);
+        createAvisosMedicamento(medicamento, fechaInicioIngesta, duracion, intervalo);
     }
 
     public void addAvisos(int medicamento, String fecha, String hora, boolean tomado) {
@@ -168,26 +173,37 @@ public class SqlHelper extends SQLiteOpenHelper {
         db.close();
     }
 
-    public void deleteAvisosMedicamento(int medicamento) {
+    private void deleteAvisosMedicamento(int medicamento) {
 
         // Get access to the database in write mode
         SQLiteDatabase db = getWritableDatabase();
 
         // Delete all entries from the table
-        db.execSQL("DELETE FROM aviso WHERE idMedicamento=" + medicamento + ";");
+        db.delete("aviso", "idMedicamento=" + medicamento, null);
 
         // Close the database helper
         db.close();
     }
 
 
-    public void deleteAllAvisos() {
+    private void createAvisosMedicamento(int medicamento, String inicio, int duracion, int intervalo) {
 
         // Get access to the database in write mode
         SQLiteDatabase db = getWritableDatabase();
 
-        // Delete all entries from the table
-        db.execSQL("DELETE FROM aviso;");
+        ContentValues values;
+
+
+        System.out.println("");
+
+
+        values = new ContentValues();
+        values.put("idMedicamento", medicamento);
+        values.put("fechaAviso", medicamento);
+        values.put("horaAviso", medicamento);
+        values.put("tomado", 0);
+
+        db.insert("aviso", null, values);
 
         // Close the database helper
         db.close();

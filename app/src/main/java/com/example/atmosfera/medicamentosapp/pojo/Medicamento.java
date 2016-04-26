@@ -4,23 +4,25 @@ public class Medicamento {
 
     private int idMedicamento;
     private String nombre;
-    private String forma;
-    private String color;
+    private int forma; //0=Pastillas 1=Inyeccion 2=Jarabe
+    private String via;
+    private String horaPrimeraIngesta;
     private String fechaInicioToma;
-    private String fechaFinToma;
+    private int duracion;
     private int intervalo;
 
     public Medicamento() {
 
     }
 
-    public Medicamento(int idMedicamento, String nombre, String forma, String color, String fechaInicioToma, String fechaFinToma, int intervalo) {
+    public Medicamento(int idMedicamento, String nombre, int forma, String via, String horaPrimeraIngesta, String fechaInicioToma, int duracion, int intervalo) {
         this.idMedicamento = idMedicamento;
         this.nombre = nombre;
         this.forma = forma;
-        this.color = color;
+        this.via = via;
+        this.horaPrimeraIngesta = horaPrimeraIngesta;
         this.fechaInicioToma = fechaInicioToma;
-        this.fechaFinToma = fechaFinToma;
+        this.duracion = duracion;
         this.intervalo = intervalo;
     }
 
@@ -40,20 +42,28 @@ public class Medicamento {
         this.nombre = nombre;
     }
 
-    public String getForma() {
+    public int getForma() {
         return forma;
     }
 
-    public void setForma(String forma) {
+    public void setForma(int forma) {
         this.forma = forma;
     }
 
-    public String getColor() {
-        return color;
+    public String getVia() {
+        return via;
     }
 
-    public void setColor(String color) {
-        this.color = color;
+    public void setVia(String via) {
+        this.via = via;
+    }
+
+    public String getHoraPrimeraIngesta() {
+        return horaPrimeraIngesta;
+    }
+
+    public void setHoraPrimeraIngesta(String horaPrimeraIngesta) {
+        this.horaPrimeraIngesta = horaPrimeraIngesta;
     }
 
     public String getFechaInicioToma() {
@@ -64,12 +74,12 @@ public class Medicamento {
         this.fechaInicioToma = fechaInicioToma;
     }
 
-    public String getFechaFinToma() {
-        return fechaFinToma;
+    public int getDuracion() {
+        return duracion;
     }
 
-    public void setFechaFinToma(String fechaFinToma) {
-        this.fechaFinToma = fechaFinToma;
+    public void setDuracion(int duracion) {
+        this.duracion = duracion;
     }
 
     public int getIntervalo() {

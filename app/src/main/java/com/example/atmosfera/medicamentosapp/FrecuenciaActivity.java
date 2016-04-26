@@ -2,6 +2,7 @@ package com.example.atmosfera.medicamentosapp;
 
 import android.app.Dialog;
 import android.app.TimePickerDialog;
+import android.support.v4.view.ViewPager;
 import android.content.Intent;
 import android.content.res.Configuration;
 import android.content.res.Resources;
@@ -12,14 +13,23 @@ import android.support.v7.widget.Toolbar;
 import android.util.DisplayMetrics;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.TimePicker;
 import android.widget.Toast;
 
 import java.util.Locale;
+
+import com.example.atmosfera.medicamentosapp.databases.SqlHelper;
+
+import org.w3c.dom.Text;
+
+import java.text.SimpleDateFormat;
+import java.util.Date;
 
 public class FrecuenciaActivity extends AppCompatActivity {
 
@@ -110,7 +120,31 @@ public class FrecuenciaActivity extends AppCompatActivity {
 
     public void anyadirMedicamento(View v) {
         if (textHora.length() != 0) {
-            setLocale("en");
+
+            //Añadir medicamento
+
+            String nombre = getIntent().getStringExtra("nombre");
+            int forma = getIntent().getIntExtra("forma", 0);
+            String via = getIntent().getStringExtra("via");
+
+            String horaPrimeraIngesta = ((TextView) findViewById(R.id.text_hora)).getText().toString();
+            String fechaInicio = currentDate.format(today);
+
+            int duracionPos = ((int) ((Spinner) findViewById(R.id.spinner_duracion)).getSelectedItemId());
+            int intervaloPos = ((int) ((Spinner) findViewById(R.id.spinner_intervalo)).getSelectedItemId());
+
+            String duraciones[] = getResources().getStringArray(R.array.duracion_array_values);
+            String intervalos[] = getResources().getStringArray(R.array.intervalos_array_values);
+
+            int duracion = Integer.valueOf(duraciones[duracionPos]);
+            int intervalo = Integer.valueOf(intervalos[intervaloPos]);
+
+            System.out.println("Vasil: addMedicamento(nombre, forma, via, horaPrimeraIngesta, fechaInicio, duracion, intervalo)");
+            System.out.println("Vasil: addMedicamento(" + nombre + ", " + forma + ", " + via + ", " + horaPrimeraIngesta + ", " + fechaInicio + ", " + duracion + ", " + intervalo + ")");
+
+            SqlHelper.getInstance(this).addMedicamento(nombre, forma, via, horaPrimeraIngesta, fechaInicio, duracion, intervalo);
+
+            //setLocale("en");
         } else
             Toast.makeText(FrecuenciaActivity.this, getResources().getString(R.string.campo_selecc_hora_vacio), Toast.LENGTH_LONG).show();
     }
