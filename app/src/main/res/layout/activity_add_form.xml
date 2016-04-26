@@ -92,7 +92,8 @@
                     android:layout_alignParentEnd="true"
                     android:layout_alignParentRight="true"
                     android:layout_alignStart="@+id/btnFrecuencia"
-                    android:spinnerMode="dialog" />
+                    android:spinnerMode="dialog"
+                    />
 
             </LinearLayout>
 

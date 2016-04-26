@@ -2,9 +2,14 @@ package com.example.atmosfera.medicamentosapp;
 
 import android.app.Dialog;
 import android.app.TimePickerDialog;
+import android.content.Intent;
+import android.content.res.Configuration;
+import android.content.res.Resources;
+import android.service.dreams.DreamService;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
+import android.util.DisplayMetrics;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.ArrayAdapter;
@@ -13,6 +18,8 @@ import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.TimePicker;
 import android.widget.Toast;
+
+import java.util.Locale;
 
 public class FrecuenciaActivity extends AppCompatActivity {
 
@@ -103,9 +110,20 @@ public class FrecuenciaActivity extends AppCompatActivity {
 
     public void anyadirMedicamento(View v) {
         if (textHora.length() != 0) {
-            //Añadir medicamento
+            setLocale("en");
         } else
-            Toast.makeText(FrecuenciaActivity.this,getResources().getString(R.string.campo_selecc_hora_vacio),Toast.LENGTH_LONG).show();
+            Toast.makeText(FrecuenciaActivity.this, getResources().getString(R.string.campo_selecc_hora_vacio), Toast.LENGTH_LONG).show();
     }
 
+    public void setLocale(String lang) {
+        Locale myLocale = new Locale(lang);
+        Resources res = getResources();
+        DisplayMetrics dm = res.getDisplayMetrics();
+        Configuration conf = res.getConfiguration();
+        conf.locale = myLocale;
+        res.updateConfiguration(conf, dm);
+        Intent refresh = new Intent(this, MainActivity.class);
+        startActivity(refresh);
+        finish();
+    }
 }

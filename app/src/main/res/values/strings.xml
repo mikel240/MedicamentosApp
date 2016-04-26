@@ -58,4 +58,11 @@
         <item>Indefinida</item>
     </string-array>
 
+    <!-- Settings Form strings  -->
+    <string-array name="language_array">
+        <item>Spanish</item>
+        <item>English</item>
+        <item>Bulgarian</item>
+    </string-array>
+
 </resources>
