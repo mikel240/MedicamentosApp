@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">CapsulaApp</string>
+    <string name="add_medication">Add Medication</string>
+    <string name="btn_done">Done</string>
+    <string name="btn_selecc">Select</string>
+    <string name="campo_name_vacio">Field name is empty</string>
+    <string name="campo_selecc_hora_vacio">Field first intake is empty</string>
+    <string name="duracion_txt">Duration</string>
+    <string name="frec_btn">Frecuency</string>
+    <string name="horario_txt">First intake hour</string>
+    <string name="intervalo_txt">Interval</string>
+    <string name="modify_medication">Modify Medicament</string>
+    <string name="name_form_add">Name</string>
+    <string name="tab_config_title">Settings</string>
+    <string name="tab_dashboard_title">Add</string>
+    <string name="tab_registro_title">Registry</string>
+    <string name="tab_tomarHoy_title">Today</string>
+    <string name="text_viewpager">Appearance</string>
+    <string name="toolbar_title_add">Add Medicament</string>
+    <string name="toolbar_title_frecuencia">Frecuency</string>
+    <string name="txt_via">Form of administration</string>
+    <string name="txt_via_land">Form: </string>
+    <string name="via_form_add">Form of administration</string>
+</resources>
