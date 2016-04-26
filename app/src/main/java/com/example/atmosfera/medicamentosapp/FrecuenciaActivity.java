@@ -120,6 +120,8 @@ public class FrecuenciaActivity extends AppCompatActivity {
 
     public void anyadirMedicamento(View v) {
         if (textHora.length() != 0) {
+            SimpleDateFormat currentDate = new SimpleDateFormat("yyyy-MM-dd");
+            Date today = new Date();
 
             //Añadir medicamento
 
