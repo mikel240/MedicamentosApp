@@ -94,28 +94,28 @@ public class FrecuenciaActivity extends AppCompatActivity {
                 public void onTimeSet(TimePicker view, int hourOfDay, int minute) {
                     hour_x = hourOfDay;
                     minute_x = minute;
-                    textHora.setText(hour_x + ":" + minute_x);
+                    String auxH = (hour_x < 10) ? "0" + hour_x : "" + hour_x;
+                    String auxM = (minute_x < 10) ? "0" + minute_x : "" + minute_x;
+                    textHora.setText(auxH + ":" + auxM);
 
                 }
             };
 
     private void setupSpinners() {
-        Spinner spinner = (Spinner) findViewById(R.id.spinner_intervalo);
-        Spinner spinner2 = (Spinner) findViewById(R.id.spinner_duracion);
+        Spinner spinnerIntervalo = (Spinner) findViewById(R.id.spinner_intervalo);
+        Spinner spinnerDuracion = (Spinner) findViewById(R.id.spinner_duracion);
 
         // Create an ArrayAdapter using the string array and a default spinner layout
-        ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(this,
-                R.array.intervalos_array, android.R.layout.simple_spinner_item);
-        ArrayAdapter<CharSequence> adapter2 = ArrayAdapter.createFromResource(this,
-                R.array.duracion_array, android.R.layout.simple_spinner_item);
+        ArrayAdapter<CharSequence> adapterIntervalo = ArrayAdapter.createFromResource(this, R.array.intervalos_array, android.R.layout.simple_spinner_item);
+        ArrayAdapter<CharSequence> adapterDuracion = ArrayAdapter.createFromResource(this, R.array.duracion_array, android.R.layout.simple_spinner_item);
 
         // Specify the layout to use when the list of choices appears
-        adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-        adapter2.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        adapterIntervalo.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        adapterDuracion.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
 
         // Apply the adapter to the spinner
-        spinner.setAdapter(adapter);
-        spinner2.setAdapter(adapter2);
+        spinnerIntervalo.setAdapter(adapterIntervalo);
+        spinnerDuracion.setAdapter(adapterDuracion);
     }
 
     public void anyadirMedicamento(View v) {
@@ -140,9 +140,6 @@ public class FrecuenciaActivity extends AppCompatActivity {
 
             int duracion = Integer.valueOf(duraciones[duracionPos]);
             int intervalo = Integer.valueOf(intervalos[intervaloPos]);
-
-            System.out.println("Vasil: addMedicamento(nombre, forma, via, horaPrimeraIngesta, fechaInicio, duracion, intervalo)");
-            System.out.println("Vasil: addMedicamento(" + nombre + ", " + forma + ", " + via + ", " + horaPrimeraIngesta + ", " + fechaInicio + ", " + duracion + ", " + intervalo + ")");
 
             SqlHelper.getInstance(this).addMedicamento(nombre, forma, via, horaPrimeraIngesta, fechaInicio, duracion, intervalo);
 

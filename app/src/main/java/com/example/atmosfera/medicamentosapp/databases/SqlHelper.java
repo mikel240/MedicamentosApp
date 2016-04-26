@@ -125,10 +125,11 @@ public class SqlHelper extends SQLiteOpenHelper {
         values.put("fechaInicioIngesta", fechaInicioIngesta);
         values.put("duracion", duracion);
         values.put("intervalo", intervalo);
-        db.insert("medicamento", null, values);
+        int medicamento = (int) db.insert("medicamento", null, values);
 
         // Close the database helper
         db.close();
+        createAvisosMedicamento(medicamento, horaPrimeraIngesta, fechaInicioIngesta, duracion, intervalo);
     }
 
     public void editMedicamento(int medicamento, String nombre, int forma, String via, String horaPrimeraIngesta, String fechaInicioIngesta, int duracion, int intervalo) {
@@ -152,22 +153,21 @@ public class SqlHelper extends SQLiteOpenHelper {
         db.close();
 
         deleteAvisosMedicamento(medicamento);
-        createAvisosMedicamento(medicamento, fechaInicioIngesta, duracion, intervalo);
+        createAvisosMedicamento(medicamento, horaPrimeraIngesta, fechaInicioIngesta, duracion, intervalo);
     }
 
-    public void addAvisos(int medicamento, String fecha, String hora, boolean tomado) {
+    public void editAviso(int aviso, String fecha, String hora, boolean tomado) {
 
         // Get access to the database in write mode
         SQLiteDatabase db = getWritableDatabase();
 
-        // Insert the new item into the table (autoincremental id)
+        // Update item
         ContentValues values = new ContentValues();
-        values.put("idMedicamento", medicamento);
         values.put("fechaAviso", fecha);
         values.put("horaAviso", hora);
         values.put("tomado", tomado);
 
-        db.insert("aviso", null, values);
+        db.update("medicamento", values, "idAviso=" + aviso, null);
 
         // Close the database helper
         db.close();
@@ -186,24 +186,77 @@ public class SqlHelper extends SQLiteOpenHelper {
     }
 
 
-    private void createAvisosMedicamento(int medicamento, String inicio, int duracion, int intervalo) {
+    private void createAvisosMedicamento(int medicamento, String horaInicio, String fechaInicio, int duracion, int intervalo) {
 
         // Get access to the database in write mode
         SQLiteDatabase db = getWritableDatabase();
 
+        int anyo = Integer.valueOf(fechaInicio.substring(0, 4));
+        int mes = Integer.valueOf(fechaInicio.substring(5, 7));
+        int dia = Integer.valueOf(fechaInicio.substring(8, 10));
+        int hora = Integer.valueOf(horaInicio.substring(0, 2));
+        int min = Integer.valueOf(horaInicio.substring(3, 5));
+
+        System.out.println("anyo: " + fechaInicio.substring(0, 4));
+        System.out.println("mes: " + fechaInicio.substring(5, 7));
+        System.out.println("dia: " + fechaInicio.substring(8, 10));
+        System.out.println("hora: " + horaInicio.substring(0, 2));
+        System.out.println("min: " + horaInicio.substring(3, 5));
+
+
+        String fechaDB, horaDB, auxM, auxD, auxH, auxMin;
+
         ContentValues values;
 
+        int i = 0;
+        while (i < (duracion * 24)) {
 
-        System.out.println("");
+            hora = hora + intervalo;
+            if (hora >= 24) {
 
+                hora = hora - 24;
+                dia = dia + 1;
 
-        values = new ContentValues();
-        values.put("idMedicamento", medicamento);
-        values.put("fechaAviso", medicamento);
-        values.put("horaAviso", medicamento);
-        values.put("tomado", 0);
+                if (dia > 31 && (mes == 1 || mes == 3 || mes == 5 || mes == 7 || mes == 8 || mes == 10 || mes == 12)) {
+                    dia = dia - 31;
+                    mes = mes + 1;
+                } else if (dia > 30 && (mes == 4 || mes == 6 || mes == 9 || mes == 11)) {
+                    dia = dia - 30;
+                    mes = mes + 1;
+                } else if (dia > 29 && mes == 2 && ((anyo % 4 == 0 && anyo % 100 != 0) || anyo % 400 == 0)) {
+                    dia = dia - 29;
+                    mes = mes + 1;
+                } else if (dia > 28 && mes == 2 && !((anyo % 4 == 0 && anyo % 100 != 0) || anyo % 400 == 0)) {
+                    dia = dia - 28;
+                    mes = mes + 1;
+                }
 
-        db.insert("aviso", null, values);
+                if (mes > 12) {
+                    mes = mes - 12;
+                    anyo = anyo + 1;
+                }
+
+            }
+
+            auxM = (mes < 10) ? "0" + mes : "" + mes;
+            auxD = (dia < 10) ? "0" + dia : "" + dia;
+            auxH = (hora < 10) ? "0" + hora : "" + hora;
+            auxMin = (min < 10) ? "0" + min : "" + min;
+
+            fechaDB = anyo + "/" + auxM + "/" + auxD;
+            horaDB = auxH + ":" + auxMin;
+
+            //System.out.println("VASIL: (medicamento, fechaDB, horaDB): (" + medicamento + ", " + fechaDB + ", " + horaDB + ")");
+
+            values = new ContentValues();
+            values.put("idMedicamento", medicamento);
+            values.put("fechaAviso", fechaDB);
+            values.put("horaAviso", horaDB);
+            values.put("tomado", 0);
+
+            db.insert("aviso", null, values);
+            i = i + intervalo;
+        }//fin while
 
         // Close the database helper
         db.close();
