@@ -18,6 +18,8 @@
     <string name="text_viewpager">Apariencia</string>
     <string name="frec_btn">Frecuencia</string>
     <string name="txt_via">Vía de administración</string>
+    <string name="txt_via_land">Vía: </string>
+
     <string name="campo_name_vacio">Introduzca el nombre del medicamento</string>
 
     <string-array name="vias_array">
@@ -31,7 +33,7 @@
 
 
     <!-- Frecuencia Form strings  -->
-    <string name="btn_done">Añadir</string>
+    <string name="btn_done">Hecho</string>
     <string name="toolbar_title_frecuencia">Frecuencia</string>
     <string name="intervalo_txt">Intervalo</string>
     <string name="duracion_txt">Duración</string>
