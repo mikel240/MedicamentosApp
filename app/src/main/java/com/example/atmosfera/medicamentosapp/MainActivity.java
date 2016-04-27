@@ -6,6 +6,7 @@ import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
 import android.view.LayoutInflater;
 import android.widget.TextView;
+
 import com.example.atmosfera.medicamentosapp.adapters.ViewPagerAdapter;
 import com.example.atmosfera.medicamentosapp.databases.SqlHelper;
 import com.example.atmosfera.medicamentosapp.fragments.DashboardFragment;
@@ -23,6 +24,7 @@ public class MainActivity extends AppCompatActivity {
     private ArrayList<Aviso> listaAvisosTomarHoy;
     private ArrayList<Aviso> listaAvisosRegistro;
 
+
     public ArrayList<Aviso> getListaAvisosTomarHoy() {
         return listaAvisosTomarHoy;
     }
@@ -35,7 +37,7 @@ public class MainActivity extends AppCompatActivity {
         return listaAvisosRegistro;
     }
 
-    public void setListaAvisos(ArrayList<Aviso> listaAvisosRegistro) {
+    public void setListaAvisosRegistro(ArrayList<Aviso> listaAvisosRegistro) {
         this.listaAvisosRegistro = listaAvisosRegistro;
     }
 
@@ -70,7 +72,6 @@ public class MainActivity extends AppCompatActivity {
                 }
 
         );
-
 
         listaAvisosTomarHoy = SqlHelper.getInstance(this).getAvisosHoy();
         listaAvisosRegistro = SqlHelper.getInstance(this).getAvisos();

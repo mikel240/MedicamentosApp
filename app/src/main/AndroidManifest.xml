@@ -22,16 +22,21 @@
         <activity android:name=".fragments.DashboardFragment" />
         <activity android:name=".fragments.TomarHoyFragment" />
         <activity android:name=".fragments.RegistroFragment" />
-        <activity android:name=".fragments.SettingsFragment" />
         <activity android:name=".AddFormActivity" />
+        <activity android:name=".EditFormActivity" />
         <activity android:name=".fragments.Image1SliderFragment" />
         <activity android:name=".fragments.Image2SliderFragment" />
         <activity android:name=".fragments.Image3SliderFragment" />
-        <activity android:name=".FrecuenciaActivity"></activity>
+        <activity android:name=".FrecuenciaActivity" />
+        <activity android:name=".EditFrecuenciaActivity" />
 
         <receiver android:name=".Notification_receiver" />
 
-
+        <activity android:name=".EditListActivity"></activity><!-- ATTENTION: This was auto-generated to add Google Play services to your project for
+     App Indexing.  See https://g.co/AppIndexing/AndroidStudio for more information. -->
+        <meta-data
+            android:name="com.google.android.gms.version"
+            android:value="@integer/google_play_services_version" />
     </application>
 
 </manifest>

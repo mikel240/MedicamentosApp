@@ -43,4 +43,8 @@
         <item name="180">6 months</item>
         <item name="365">1 year</item>
     </string-array>
+    <string name="toolbar_title_edit">Edit Medicament</string>
+    <string name="textNotification">It\'s time to take your medication! </string>
+    <string name="msg_errror_edit_medicament">The medicament could not be edited</string>
+    <string name="msg_ok_edit_medicament">The medicament was edited successfully</string>
 </resources>

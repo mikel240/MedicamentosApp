@@ -12,7 +12,7 @@ public class ViewPagerAdapter extends FragmentPagerAdapter {
 
     private final List<Fragment> mFragmentList = new ArrayList<>();
     private final List<String> mFragmentTitleList = new ArrayList<>();
-    private final HashMap<Fragment,String> FragmentTitleHash = new HashMap<Fragment,String>();
+    private final HashMap<Fragment, String> FragmentTitleHash = new HashMap<Fragment, String>();
 
     public ViewPagerAdapter(FragmentManager fm) {
         super(fm);
@@ -31,7 +31,7 @@ public class ViewPagerAdapter extends FragmentPagerAdapter {
     public void addFragment(Fragment fragment, String title) {
         mFragmentList.add(fragment);
         mFragmentTitleList.add(title);
-        FragmentTitleHash.put(fragment,title);
+        FragmentTitleHash.put(fragment, title);
     }
 
     @Override
@@ -39,7 +39,7 @@ public class ViewPagerAdapter extends FragmentPagerAdapter {
         return mFragmentTitleList.get(position);
     }
 
-    public String getTitleFromFragment(Fragment fragment){
+    public String getTitleFromFragment(Fragment fragment) {
         return FragmentTitleHash.get(fragment);
     }
 }

@@ -12,8 +12,6 @@ import com.example.atmosfera.medicamentosapp.pojo.Medicamento;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
-import java.util.HashMap;
-import java.util.logging.StreamHandler;
 
 public class SqlHelper extends SQLiteOpenHelper {
 
@@ -135,6 +133,79 @@ public class SqlHelper extends SQLiteOpenHelper {
     }
 
 
+    public ArrayList<Medicamento> getMedicamentos() {
+
+        ArrayList<Medicamento> result = new ArrayList<>();
+        Medicamento iMedicamento;
+
+        // Get access to the database in read mode
+        SQLiteDatabase db = getReadableDatabase();
+
+        // Query the table to get the text and author for all existing entries
+        Cursor c = db.rawQuery("SELECT * FROM medicamento M ORDER BY M.nombre ASC;", null);
+
+        // Go through the resulting cursor
+        while (c.moveToNext()) {
+
+            // Create a object for the given entry in the database
+            iMedicamento = new Medicamento();
+
+            iMedicamento.setIdMedicamento(c.getInt(c.getColumnIndex("idMedicamento")));
+            iMedicamento.setNombre(c.getString(c.getColumnIndex("nombre")));
+            iMedicamento.setForma(c.getInt(c.getColumnIndex("forma")));
+            iMedicamento.setVia(c.getString(c.getColumnIndex("via")));
+            iMedicamento.setHoraPrimeraIngesta(c.getString(c.getColumnIndex("horaPrimeraIngesta")));
+            iMedicamento.setFechaInicioIngesta(c.getString(c.getColumnIndex("fechaInicioIngesta")));
+            iMedicamento.setDuracion(c.getInt(c.getColumnIndex("duracion")));
+            iMedicamento.setIntervalo(c.getInt(c.getColumnIndex("intervalo")));
+
+            // Add the object to the result list
+            result.add(iMedicamento);
+        }
+
+        // Close cursor and database helper
+        c.close();
+        db.close();
+
+        return result;
+    }
+
+
+    public Medicamento getMedicamento(int id) {
+
+        Medicamento res = null;
+
+        // Get access to the database in read mode
+        SQLiteDatabase db = getReadableDatabase();
+
+        // Query the table to get the text and author for all existing entries
+        Cursor c = db.rawQuery("SELECT * FROM medicamento WHERE idMedicamento=" + id + ";", null);
+
+        // Go through the resulting cursor
+        while (c.moveToNext()) {
+
+            // Create a object for the given entry in the database
+            res = new Medicamento();
+
+            res.setIdMedicamento(c.getInt(c.getColumnIndex("idMedicamento")));
+            res.setNombre(c.getString(c.getColumnIndex("nombre")));
+            res.setForma(c.getInt(c.getColumnIndex("forma")));
+            res.setVia(c.getString(c.getColumnIndex("via")));
+            res.setHoraPrimeraIngesta(c.getString(c.getColumnIndex("horaPrimeraIngesta")));
+            res.setFechaInicioIngesta(c.getString(c.getColumnIndex("fechaInicioIngesta")));
+            res.setDuracion(c.getInt(c.getColumnIndex("duracion")));
+            res.setIntervalo(c.getInt(c.getColumnIndex("intervalo")));
+
+        }
+
+        // Close cursor and database helper
+        c.close();
+        db.close();
+
+        return res;
+    }
+
+
     public ArrayList<Aviso> getAvisosHoy() {
 
         SimpleDateFormat currentDate = new SimpleDateFormat("yyyy/MM/dd");
@@ -215,8 +286,9 @@ public class SqlHelper extends SQLiteOpenHelper {
         return id;
     }
 
-    public void editMedicamento(int medicamento, String nombre, int forma, String via, String horaPrimeraIngesta, String fechaInicioIngesta, int duracion, int intervalo) {
+    public int editMedicamento(int medicamento, String nombre, int forma, String via, String horaPrimeraIngesta, String fechaInicioIngesta, int duracion, int intervalo) {
 
+        int res;
         // Get access to the database in write mode
         SQLiteDatabase db = getWritableDatabase();
 
@@ -230,13 +302,11 @@ public class SqlHelper extends SQLiteOpenHelper {
         cv.put("duracion", duracion);
         cv.put("intervalo", intervalo);
 
-        db.update("medicamento", cv, "idMedicamento=" + medicamento, null);
+        res = db.update("medicamento", cv, "idMedicamento=" + medicamento, null);
 
         // Close the database helper
         db.close();
-
-        deleteAvisosMedicamento(medicamento);
-        createAvisosMedicamento(medicamento, horaPrimeraIngesta, fechaInicioIngesta, duracion, intervalo);
+        return res;
     }
 
     public void editAviso(int aviso, String fecha, String hora, boolean tomado) {
@@ -256,7 +326,7 @@ public class SqlHelper extends SQLiteOpenHelper {
         db.close();
     }
 
-    private void deleteAvisosMedicamento(int medicamento) {
+    public void deleteAvisosMedicamento(int medicamento) {
 
         // Get access to the database in write mode
         SQLiteDatabase db = getWritableDatabase();

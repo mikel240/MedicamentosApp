@@ -13,32 +13,62 @@ import android.widget.Spinner;
 import android.widget.Toast;
 
 import com.example.atmosfera.medicamentosapp.adapters.ViewPagerAdapter;
+import com.example.atmosfera.medicamentosapp.databases.SqlHelper;
 import com.example.atmosfera.medicamentosapp.fragments.Image1SliderFragment;
 import com.example.atmosfera.medicamentosapp.fragments.Image2SliderFragment;
 import com.example.atmosfera.medicamentosapp.fragments.Image3SliderFragment;
+import com.example.atmosfera.medicamentosapp.pojo.Medicamento;
 
-public class AddFormActivity extends AppCompatActivity {
+public class EditFormActivity extends AppCompatActivity {
 
+    Medicamento m;
     Toolbar toolbar;
     ViewPager viewPager;
+    Spinner spinner;
+    EditText etNombre;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_add_form);
+        setContentView(R.layout.activity_edit_form);
 
         //Agregar custom ActionBar
         toolbar = (Toolbar) findViewById(R.id.toolbar);
-        toolbar.setTitle(getResources().getString(R.string.toolbar_title_add));
+        toolbar.setTitle(getResources().getString(R.string.toolbar_title_edit));
         setSupportActionBar(toolbar);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         getSupportActionBar().setDisplayShowHomeEnabled(true);
 
+        int id = getIntent().getIntExtra("id", -1);
+        if (id == -1) {
+            return;
+        }
+
+        m = SqlHelper.getInstance(this).getMedicamento(id);
+        if (m == null) {
+            return;
+        }
+
         viewPager = (ViewPager) findViewById(R.id.viewpager);
         setupViewPager(viewPager);
+        viewPager.setCurrentItem(m.getForma());
 
         //Precargar Spinner
         setupSpinnerVia();
+        String arr[] = getResources().getStringArray(R.array.vias_array);
+
+        int pos = 0;
+        while (pos < arr.length) {
+            if (m.getVia().equals(arr[pos])) {
+                break;
+            }
+            pos++;
+        }
+
+        spinner.setSelection(pos);
+
+        etNombre = (EditText) findViewById(R.id.name);
+        etNombre.setText(m.getNombre());
     }
 
     @Override
@@ -61,7 +91,7 @@ public class AddFormActivity extends AppCompatActivity {
     }
 
     private void setupSpinnerVia() {
-        Spinner spinner = (Spinner) findViewById(R.id.via);
+        spinner = (Spinner) findViewById(R.id.via);
         // Create an ArrayAdapter using the string array and a default spinner layout
         ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(this,
                 R.array.vias_array, android.R.layout.simple_spinner_item);
@@ -71,19 +101,23 @@ public class AddFormActivity extends AppCompatActivity {
         spinner.setAdapter(adapter);
     }
 
-    public void openFrecuenciaActivity(View v) {
-        String nombre = ((EditText) findViewById(R.id.name)).getText().toString();
+    public void openEditFrecuenciaActivity(View v) {
+        String nombre = etNombre.getText().toString();
         int forma = ((ViewPager) findViewById(R.id.viewpager)).getCurrentItem();
         String via = ((Spinner) findViewById(R.id.via)).getSelectedItem().toString();
 
         if (nombre.length() != 0) {
-            Intent in = new Intent(this, FrecuenciaActivity.class).
+            Intent in = new Intent(this, EditFrecuenciaActivity.class).
+                    putExtra("id", m.getIdMedicamento()).
                     putExtra("nombre", nombre).
                     putExtra("forma", forma).
-                    putExtra("via", via);
+                    putExtra("via", via).
+                    putExtra("hora", m.getHoraPrimeraIngesta()).
+                    putExtra("intervalo", "" + m.getIntervalo()).
+                    putExtra("duracion", "" + m.getDuracion());
             startActivity(in);
         } else {
-            Toast.makeText(AddFormActivity.this, getResources().getString(R.string.campo_name_vacio), Toast.LENGTH_LONG).show();
+            Toast.makeText(EditFormActivity.this, getResources().getString(R.string.campo_name_vacio), Toast.LENGTH_LONG).show();
         }
     }
 

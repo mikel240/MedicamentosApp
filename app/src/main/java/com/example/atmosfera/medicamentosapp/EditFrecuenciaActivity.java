@@ -27,12 +27,20 @@ import java.util.Calendar;
 import java.util.Date;
 import java.util.Locale;
 
-public class FrecuenciaActivity extends AppCompatActivity {
+public class EditFrecuenciaActivity extends AppCompatActivity {
+
+    int id;
+    String hora;
+    String intervalo;
+    String duracion;
 
     Toolbar toolbar;
     Button button_stpd;
     int hour_x, minute_x;
     TextView textHora;
+    Spinner spinnerIntervalo;
+    Spinner spinnerDuracion;
+
     static final int DIALOD_ID = 0;
 
     @Override
@@ -53,6 +61,35 @@ public class FrecuenciaActivity extends AppCompatActivity {
 
         //cargar Spinners
         setupSpinners();
+
+        id = getIntent().getIntExtra("id", -1);
+        hora = getIntent().getStringExtra("hora");
+        intervalo = getIntent().getStringExtra("intervalo");
+        duracion = getIntent().getStringExtra("duracion");
+
+        String arrD[] = getResources().getStringArray(R.array.duracion_array_values);
+        String arrI[] = getResources().getStringArray(R.array.intervalos_array_values);
+
+        int posD = 0, posI = 0;
+
+        while (posD < arrD.length) {
+            if (duracion.equals(arrD[posD])) {
+                break;
+            }
+            posD++;
+        }
+
+        while (posI < arrI.length) {
+            if (intervalo.equals(arrI[posI])) {
+                break;
+            }
+            posI++;
+        }
+
+        spinnerIntervalo.setSelection(posI);
+        spinnerDuracion.setSelection(posD);
+
+
     }
 
     @Override
@@ -98,8 +135,8 @@ public class FrecuenciaActivity extends AppCompatActivity {
             };
 
     private void setupSpinners() {
-        Spinner spinnerIntervalo = (Spinner) findViewById(R.id.spinner_intervalo);
-        Spinner spinnerDuracion = (Spinner) findViewById(R.id.spinner_duracion);
+        spinnerIntervalo = (Spinner) findViewById(R.id.spinner_intervalo);
+        spinnerDuracion = (Spinner) findViewById(R.id.spinner_duracion);
 
         // Create an ArrayAdapter using the string array and a default spinner layout
         ArrayAdapter<CharSequence> adapterIntervalo = ArrayAdapter.createFromResource(this, R.array.intervalos_array, android.R.layout.simple_spinner_item);
@@ -137,13 +174,15 @@ public class FrecuenciaActivity extends AppCompatActivity {
             int duracion = Integer.valueOf(duraciones[duracionPos]);
             int intervalo = Integer.valueOf(intervalos[intervaloPos]);
 
-            int res = SqlHelper.getInstance(this).addMedicamento(nombre, forma, via, horaPrimeraIngesta, fechaInicio, duracion, intervalo);
+            int res = SqlHelper.getInstance(this).editMedicamento(id, nombre, forma, via, horaPrimeraIngesta, fechaInicio, duracion, intervalo);
 
             if (res == -1) {
-                Toast.makeText(FrecuenciaActivity.this, getResources().getString(R.string.msg_errror_add_medicament), Toast.LENGTH_LONG).show();
+                Toast.makeText(EditFrecuenciaActivity.this, getResources().getString(R.string.msg_errror_edit_medicament), Toast.LENGTH_LONG).show();
             } else {
+                SqlHelper.getInstance(this).deleteAvisosMedicamento(res);
                 SqlHelper.getInstance(this).createAvisosMedicamento(res, horaPrimeraIngesta, fechaInicio, duracion, intervalo);
-                Toast.makeText(FrecuenciaActivity.this, getResources().getString(R.string.msg_ok_add_medicament), Toast.LENGTH_LONG).show();
+
+                Toast.makeText(EditFrecuenciaActivity.this, getResources().getString(R.string.msg_ok_edit_medicament), Toast.LENGTH_LONG).show();
 
                 createAlarm(res, horaPrimeraIngesta, (intervalo * 60 * 60 * 1000));
 
@@ -154,7 +193,7 @@ public class FrecuenciaActivity extends AppCompatActivity {
             }
 
         } else
-            Toast.makeText(FrecuenciaActivity.this, getResources().getString(R.string.campo_selecc_hora_vacio), Toast.LENGTH_LONG).show();
+            Toast.makeText(EditFrecuenciaActivity.this, getResources().getString(R.string.campo_selecc_hora_vacio), Toast.LENGTH_LONG).show();
     }
 
     public void createAlarm(int id, String hora, int time) {
