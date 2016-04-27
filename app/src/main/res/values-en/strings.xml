@@ -23,6 +23,7 @@
     <string name="txt_via_land">Form: </string>
     <string name="via_form_add">Form of administration</string>
     <string name="msg_errror_add_medicament">The medicament could not be added</string>
+    <string name="msg_ok_add_medicament">The medicament was added successfully</string>
 
     <string-array name="intervalos_array">
         <item>4 hours</item>

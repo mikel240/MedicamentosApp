@@ -13,6 +13,7 @@ import android.view.WindowManager;
 import android.widget.TextView;
 
 import com.example.atmosfera.medicamentosapp.adapters.ViewPagerAdapter;
+import com.example.atmosfera.medicamentosapp.databases.SqlHelper;
 import com.example.atmosfera.medicamentosapp.fragments.DashboardFragment;
 import com.example.atmosfera.medicamentosapp.fragments.RegistroFragment;
 import com.example.atmosfera.medicamentosapp.fragments.SettingsFragment;
@@ -26,23 +27,23 @@ public class MainActivity extends AppCompatActivity {
     private ViewPager viewPager;
     private TabLayout tabLayout;
 
-    private ArrayList<Aviso> listaAvisosHoy;
-    private ArrayList<Aviso> listaAvisos;
+    private ArrayList<Aviso> listaAvisosTomarHoy;
+    private ArrayList<Aviso> listaAvisosRegistro;
 
-    public ArrayList<Aviso> getListaAvisosHoy() {
-        return listaAvisosHoy;
+    public ArrayList<Aviso> getListaAvisosTomarHoy() {
+        return listaAvisosTomarHoy;
     }
 
-    public void setListaAvisosHoy(ArrayList<Aviso> listaAvisosHoy) {
-        this.listaAvisosHoy = listaAvisosHoy;
+    public void setListaAvisosTomarHoy(ArrayList<Aviso> listaAvisosTomarHoy) {
+        this.listaAvisosTomarHoy = listaAvisosTomarHoy;
     }
 
-    public ArrayList<Aviso> getListaAvisos() {
-        return listaAvisos;
+    public ArrayList<Aviso> getListaAvisosRegistro() {
+        return listaAvisosRegistro;
     }
 
-    public void setListaAvisos(ArrayList<Aviso> listaAvisos) {
-        this.listaAvisos = listaAvisos;
+    public void setListaAvisos(ArrayList<Aviso> listaAvisosRegistro) {
+        this.listaAvisosRegistro = listaAvisosRegistro;
     }
 
     @Override
@@ -60,6 +61,9 @@ public class MainActivity extends AppCompatActivity {
         tabLayout = (TabLayout) findViewById(R.id.tab_layout);
         tabLayout.setupWithViewPager(viewPager);
         setupTabIcons();
+
+        listaAvisosTomarHoy = SqlHelper.getInstance(this).getAvisosHoy();
+        listaAvisosRegistro = SqlHelper.getInstance(this).getAvisos();
     }
 
     private void setupViewPager(ViewPager viewPager) {

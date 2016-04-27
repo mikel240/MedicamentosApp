@@ -41,6 +41,7 @@
     <string name="btn_selecc">Seleccionar</string>
     <string name="campo_selecc_hora_vacio">Introduzca la hora de la primera ingesta</string>
     <string name="msg_errror_add_medicament">No se ha podido añadir el medicamento</string>
+    <string name="msg_ok_add_medicament">El medicamento se ha añadido correctamente</string>
 
 
     <string-array name="intervalos_array">

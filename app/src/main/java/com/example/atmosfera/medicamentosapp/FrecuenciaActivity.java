@@ -149,6 +149,7 @@ public class FrecuenciaActivity extends AppCompatActivity {
                 Toast.makeText(FrecuenciaActivity.this, getResources().getString(R.string.msg_errror_add_medicament), Toast.LENGTH_LONG).show();
             } else {
                 SqlHelper.getInstance(this).createAvisosMedicamento(res, horaPrimeraIngesta, fechaInicio, duracion, intervalo);
+                Toast.makeText(FrecuenciaActivity.this, getResources().getString(R.string.msg_ok_add_medicament), Toast.LENGTH_LONG).show();
             }
 
         } else

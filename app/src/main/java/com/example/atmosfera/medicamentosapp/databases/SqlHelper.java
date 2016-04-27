@@ -104,20 +104,20 @@ public class SqlHelper extends SQLiteOpenHelper {
             iAviso = new Aviso();
             iMedicamento = new Medicamento();
 
-            iMedicamento.setIdMedicamento(c.getInt(c.getColumnIndex("M.idMedicamento")));
-            iMedicamento.setNombre(c.getString(c.getColumnIndex("M.nombre")));
-            iMedicamento.setForma(c.getInt(c.getColumnIndex("M.forma")));
-            iMedicamento.setVia(c.getString(c.getColumnIndex("M.via")));
-            iMedicamento.setHoraPrimeraIngesta(c.getString(c.getColumnIndex("M.horaPrimeraIngesta")));
-            iMedicamento.setFechaInicioIngesta(c.getString(c.getColumnIndex("M.fechaInicioIngesta")));
-            iMedicamento.setDuracion(c.getInt(c.getColumnIndex("M.duracion")));
-            iMedicamento.setIntervalo(c.getInt(c.getColumnIndex("M.intervalo")));
+            iMedicamento.setIdMedicamento(c.getInt(c.getColumnIndex("idMedicamento")));
+            iMedicamento.setNombre(c.getString(c.getColumnIndex("nombre")));
+            iMedicamento.setForma(c.getInt(c.getColumnIndex("forma")));
+            iMedicamento.setVia(c.getString(c.getColumnIndex("via")));
+            iMedicamento.setHoraPrimeraIngesta(c.getString(c.getColumnIndex("horaPrimeraIngesta")));
+            iMedicamento.setFechaInicioIngesta(c.getString(c.getColumnIndex("fechaInicioIngesta")));
+            iMedicamento.setDuracion(c.getInt(c.getColumnIndex("duracion")));
+            iMedicamento.setIntervalo(c.getInt(c.getColumnIndex("intervalo")));
 
-            iAviso.setIdAviso(c.getInt(c.getColumnIndex("A.idAviso")));
-            iAviso.setIdMedicamento(c.getInt(c.getColumnIndex("A.idMedicamento")));
-            iAviso.setFechaAviso(c.getString(c.getColumnIndex("A.fechaAviso")));
-            iAviso.setHoraAviso(c.getString(c.getColumnIndex("A.horaAviso")));
-            iAviso.setTomado(c.getInt(c.getColumnIndex("A.tomado")) == 1);
+            iAviso.setIdAviso(c.getInt(c.getColumnIndex("idAviso")));
+            iAviso.setIdMedicamento(c.getInt(c.getColumnIndex("idMedicamento")));
+            iAviso.setFechaAviso(c.getString(c.getColumnIndex("fechaAviso")));
+            iAviso.setHoraAviso(c.getString(c.getColumnIndex("horaAviso")));
+            iAviso.setTomado(c.getInt(c.getColumnIndex("tomado")) == 1);
 
             iAviso.setMedicamento(iMedicamento);
 
@@ -135,7 +135,7 @@ public class SqlHelper extends SQLiteOpenHelper {
 
     public ArrayList<Aviso> getAvisosHoy() {
 
-        SimpleDateFormat currentDate = new SimpleDateFormat("yyyy-MM-dd");
+        SimpleDateFormat currentDate = new SimpleDateFormat("yyyy/MM/dd");
         Date today = new Date();
         String fechaHoy = currentDate.format(today);
 
@@ -149,8 +149,7 @@ public class SqlHelper extends SQLiteOpenHelper {
         // Query the table to get the text and author for all existing entries
         Cursor c = db.rawQuery("SELECT * " +
                         "FROM aviso A, medicamento M " +
-                        "WHERE A.idMedicamento=M.idMedicamento " +
-                        "AND A.fechaAviso='" + fechaHoy + "' " +
+                        "WHERE A.idMedicamento=M.idMedicamento AND A.fechaAviso=\"" + fechaHoy + "\" " +
                         "ORDER BY A.fechaAviso ASC, A.horaAviso ASC, A.idMedicamento ASC;",
                 null);
 
@@ -161,20 +160,20 @@ public class SqlHelper extends SQLiteOpenHelper {
             iAviso = new Aviso();
             iMedicamento = new Medicamento();
 
-            iMedicamento.setIdMedicamento(c.getInt(c.getColumnIndex("M.idMedicamento")));
-            iMedicamento.setNombre(c.getString(c.getColumnIndex("M.nombre")));
-            iMedicamento.setForma(c.getInt(c.getColumnIndex("M.forma")));
-            iMedicamento.setVia(c.getString(c.getColumnIndex("M.via")));
-            iMedicamento.setHoraPrimeraIngesta(c.getString(c.getColumnIndex("M.horaPrimeraIngesta")));
-            iMedicamento.setFechaInicioIngesta(c.getString(c.getColumnIndex("M.fechaInicioIngesta")));
-            iMedicamento.setDuracion(c.getInt(c.getColumnIndex("M.duracion")));
-            iMedicamento.setIntervalo(c.getInt(c.getColumnIndex("M.intervalo")));
+            iMedicamento.setIdMedicamento(c.getInt(c.getColumnIndex("idMedicamento")));
+            iMedicamento.setNombre(c.getString(c.getColumnIndex("nombre")));
+            iMedicamento.setForma(c.getInt(c.getColumnIndex("forma")));
+            iMedicamento.setVia(c.getString(c.getColumnIndex("via")));
+            iMedicamento.setHoraPrimeraIngesta(c.getString(c.getColumnIndex("horaPrimeraIngesta")));
+            iMedicamento.setFechaInicioIngesta(c.getString(c.getColumnIndex("fechaInicioIngesta")));
+            iMedicamento.setDuracion(c.getInt(c.getColumnIndex("duracion")));
+            iMedicamento.setIntervalo(c.getInt(c.getColumnIndex("intervalo")));
 
-            iAviso.setIdAviso(c.getInt(c.getColumnIndex("A.idAviso")));
-            iAviso.setIdMedicamento(c.getInt(c.getColumnIndex("A.idMedicamento")));
-            iAviso.setFechaAviso(c.getString(c.getColumnIndex("A.fechaAviso")));
-            iAviso.setHoraAviso(c.getString(c.getColumnIndex("A.horaAviso")));
-            iAviso.setTomado(c.getInt(c.getColumnIndex("A.tomado")) == 1);
+            iAviso.setIdAviso(c.getInt(c.getColumnIndex("idAviso")));
+            iAviso.setIdMedicamento(c.getInt(c.getColumnIndex("idMedicamento")));
+            iAviso.setFechaAviso(c.getString(c.getColumnIndex("fechaAviso")));
+            iAviso.setHoraAviso(c.getString(c.getColumnIndex("horaAviso")));
+            iAviso.setTomado(c.getInt(c.getColumnIndex("tomado")) == 1);
 
             iAviso.setMedicamento(iMedicamento);
 
@@ -278,12 +277,12 @@ public class SqlHelper extends SQLiteOpenHelper {
         int dia = Integer.valueOf(fechaInicio.substring(8, 10));
         int hora = Integer.valueOf(horaInicio.substring(0, 2));
         int min = Integer.valueOf(horaInicio.substring(3, 5));
-
-        System.out.println("anyo: " + fechaInicio.substring(0, 4));
-        System.out.println("mes: " + fechaInicio.substring(5, 7));
-        System.out.println("dia: " + fechaInicio.substring(8, 10));
-        System.out.println("hora: " + horaInicio.substring(0, 2));
-        System.out.println("min: " + horaInicio.substring(3, 5));
+//
+//        System.out.println("anyo: " + fechaInicio.substring(0, 4));
+//        System.out.println("mes: " + fechaInicio.substring(5, 7));
+//        System.out.println("dia: " + fechaInicio.substring(8, 10));
+//        System.out.println("hora: " + horaInicio.substring(0, 2));
+//        System.out.println("min: " + horaInicio.substring(3, 5));
 
 
         String fechaDB, horaDB, auxM, auxD, auxH, auxMin;

@@ -6,34 +6,63 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.TextView;
+import android.widget.ListView;
 
+import com.example.atmosfera.medicamentosapp.MainActivity;
 import com.example.atmosfera.medicamentosapp.R;
-import com.example.atmosfera.medicamentosapp.databases.SqlHelper;
+import com.example.atmosfera.medicamentosapp.adapters.CustomAdapter;
 import com.example.atmosfera.medicamentosapp.pojo.Aviso;
 
 import java.util.ArrayList;
+import java.util.Objects;
 
 public class TomarHoyFragment extends Fragment {
-    private ArrayList<Aviso> listaAvisos = null;
+    private View view;
+    private MainActivity activity;
 
-    public TomarHoyFragment() {
-    }
+    private ArrayList<Aviso> listaAvisosTomarHoy;
+    private ListView lvTomarHoy;
+
+    private CustomAdapter caTomarHoy;
 
 
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        View view = inflater.inflate(R.layout.tomar_hoy_fragment, null);
-        TextView tvTest = (TextView) view.findViewById(R.id.tvTest);
-        /*String res = "";
-        listaAvisos = SqlHelper.getInstance(getContext()).getAvisosHoy();
-        for (Aviso a : listaAvisos) {
-            res += a.getIdMedicamento() + " " + a.getMedicamento().getNombre() + " " + a.getFechaAviso() + " " + a.getHoraAviso() + "\n";
-        }*/
+        view = inflater.inflate(R.layout.tomar_hoy_fragment, null);
+        activity = (MainActivity) getActivity();
 
-        tvTest.setText("holaa");
+        listaAvisosTomarHoy = activity.getListaAvisosTomarHoy();
+        lvTomarHoy = (ListView) view.findViewById(R.id.lvTomarHoy);
+
+        drawTomarHoy();
+
         return view;
     }
 
+
+    private void drawTomarHoy() {
+
+        String ultFecha = "", fechaAux = "";
+
+        ArrayList<Object> lista = new ArrayList<>();
+
+        for (Aviso aviso : listaAvisosTomarHoy) {
+            ultFecha = aviso.getFechaAviso();
+
+            if (!ultFecha.equals(fechaAux)) {
+                fechaAux = aviso.getFechaAviso();
+                lista.add(fechaAux);
+            }
+
+            lista.add(aviso);
+        }
+
+        listaAvisosTomarHoy.clear();
+
+        caTomarHoy = new CustomAdapter(getContext(), lista);
+
+        lvTomarHoy.setAdapter(caTomarHoy);
+
+    }
 }
