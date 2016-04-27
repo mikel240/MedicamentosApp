@@ -4,11 +4,6 @@ import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
 
-import com.example.atmosfera.medicamentosapp.fragments.DashboardFragment;
-import com.example.atmosfera.medicamentosapp.fragments.RegistroFragment;
-import com.example.atmosfera.medicamentosapp.fragments.SettingsFragment;
-import com.example.atmosfera.medicamentosapp.fragments.TomarHoyFragment;
-
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;

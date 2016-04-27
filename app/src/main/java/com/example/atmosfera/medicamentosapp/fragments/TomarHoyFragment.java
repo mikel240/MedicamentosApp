@@ -10,11 +10,10 @@ import android.widget.ListView;
 
 import com.example.atmosfera.medicamentosapp.MainActivity;
 import com.example.atmosfera.medicamentosapp.R;
-import com.example.atmosfera.medicamentosapp.adapters.CustomAdapter;
+import com.example.atmosfera.medicamentosapp.adapters.CustomArrayAdapter;
 import com.example.atmosfera.medicamentosapp.pojo.Aviso;
 
 import java.util.ArrayList;
-import java.util.Objects;
 
 public class TomarHoyFragment extends Fragment {
     private View view;
@@ -23,7 +22,7 @@ public class TomarHoyFragment extends Fragment {
     private ArrayList<Aviso> listaAvisosTomarHoy;
     private ListView lvTomarHoy;
 
-    private CustomAdapter caTomarHoy;
+    private CustomArrayAdapter caTomarHoy;
 
 
     @Nullable
@@ -60,7 +59,7 @@ public class TomarHoyFragment extends Fragment {
 
         listaAvisosTomarHoy.clear();
 
-        caTomarHoy = new CustomAdapter(getContext(), lista);
+        caTomarHoy = new CustomArrayAdapter(getContext(), lista);
 
         lvTomarHoy.setAdapter(caTomarHoy);
 

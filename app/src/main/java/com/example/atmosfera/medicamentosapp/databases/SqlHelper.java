@@ -12,6 +12,8 @@ import com.example.atmosfera.medicamentosapp.pojo.Medicamento;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.HashMap;
+import java.util.logging.StreamHandler;
 
 public class SqlHelper extends SQLiteOpenHelper {
 
@@ -292,7 +294,6 @@ public class SqlHelper extends SQLiteOpenHelper {
         int i = 0;
         while (i < (duracion * 24)) {
 
-            hora = hora + intervalo;
             if (hora >= 24) {
 
                 hora = hora - 24;
@@ -336,6 +337,7 @@ public class SqlHelper extends SQLiteOpenHelper {
             cv.put("tomado", 0);
 
             db.insert("aviso", null, cv);
+            hora = hora + intervalo;
             i = i + intervalo;
         }//fin while
 

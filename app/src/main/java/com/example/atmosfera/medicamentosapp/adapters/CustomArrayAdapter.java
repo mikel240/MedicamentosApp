@@ -14,14 +14,14 @@ import com.example.atmosfera.medicamentosapp.pojo.Aviso;
 
 import java.util.ArrayList;
 
-public class CustomAdapter extends ArrayAdapter<Object> {
+public class CustomArrayAdapter extends ArrayAdapter<Object> {
 
     private final int IMGS[] = {R.drawable.ic_im_pastillas, R.drawable.im_inyeccion, R.drawable.im_jarabe};
     private Context context;
     private ArrayList<Object> items;
     private LayoutInflater layoutInflater;
 
-    public CustomAdapter(Context context, ArrayList<Object> items) {
+    public CustomArrayAdapter(Context context, ArrayList<Object> items) {
         super(context, 0, items);
         this.context = context;
         this.items = items;
@@ -59,19 +59,7 @@ public class CustomAdapter extends ArrayAdapter<Object> {
                 imForma.setImageResource(IMGS[row.getMedicamento().getForma()]);
                 nombre.setText(row.getMedicamento().getNombre());
 
-                int iAux = row.getMedicamento().getIntervalo();
-                String sAux ="";
-
-                if (iAux  < 24){
-                    sAux = iAux + " horas";
-                } else if (iAux == 24){
-                    sAux = "día";
-                } else {
-                    sAux = (iAux / 24) + " días";
-                }
-
-
-                frecuencia.setText("Cada " +  sAux);
+                frecuencia.setText("Vía: " + row.getMedicamento().getVia());
                 hora.setText(row.getHoraAviso());
             }
         }

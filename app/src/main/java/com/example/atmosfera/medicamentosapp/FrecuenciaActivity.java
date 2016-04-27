@@ -1,6 +1,8 @@
 package com.example.atmosfera.medicamentosapp;
 
+import android.app.AlarmManager;
 import android.app.Dialog;
+import android.app.PendingIntent;
 import android.app.TimePickerDialog;
 import android.database.sqlite.SQLiteOpenHelper;
 import android.support.v4.view.ViewPager;
@@ -24,6 +26,7 @@ import android.widget.TimePicker;
 import android.widget.Toast;
 
 import java.sql.SQLClientInfoException;
+import java.util.Calendar;
 import java.util.Locale;
 
 import com.example.atmosfera.medicamentosapp.databases.SqlHelper;
@@ -150,10 +153,39 @@ public class FrecuenciaActivity extends AppCompatActivity {
             } else {
                 SqlHelper.getInstance(this).createAvisosMedicamento(res, horaPrimeraIngesta, fechaInicio, duracion, intervalo);
                 Toast.makeText(FrecuenciaActivity.this, getResources().getString(R.string.msg_ok_add_medicament), Toast.LENGTH_LONG).show();
+
+                createAlarm(res, horaPrimeraIngesta, (intervalo * 60 * 60 * 1000));
+
+                Intent in = new Intent(this, MainActivity.class);
+                in.setAction("hola");
+                startActivity(in);
+                finish();
             }
 
         } else
             Toast.makeText(FrecuenciaActivity.this, getResources().getString(R.string.campo_selecc_hora_vacio), Toast.LENGTH_LONG).show();
+    }
+
+    public void createAlarm(int id, String hora, int time) {
+
+        Calendar calendar = Calendar.getInstance();
+        //Cuando se dispara la primera alarma.
+        calendar.set(Calendar.HOUR_OF_DAY, Integer.valueOf(hora.substring(0, 2)));
+        calendar.set(Calendar.MINUTE, Integer.valueOf(hora.substring(3, 5)));
+        calendar.set(Calendar.SECOND, 00);
+
+//        Genera distintos IDs para tener múltiples alarmas
+//        final int ID = (int) System.currentTimeMillis();
+
+        Intent intent = new Intent(getApplicationContext(), Notification_receiver.class);
+        intent.putExtra("texto", getResources().getString(R.string.textNotification));
+
+        PendingIntent pendingIntent = PendingIntent.getBroadcast(getApplicationContext(), id, intent, PendingIntent.FLAG_UPDATE_CURRENT);
+
+        AlarmManager alarmManager = (AlarmManager) getSystemService(ALARM_SERVICE);
+
+        alarmManager.setRepeating(AlarmManager.RTC_WAKEUP, calendar.getTimeInMillis(), time, pendingIntent);
+
     }
 
     public void setLocale(String lang) {

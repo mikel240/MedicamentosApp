@@ -10,7 +10,7 @@ import android.widget.ListView;
 
 import com.example.atmosfera.medicamentosapp.MainActivity;
 import com.example.atmosfera.medicamentosapp.R;
-import com.example.atmosfera.medicamentosapp.adapters.CustomAdapter;
+import com.example.atmosfera.medicamentosapp.adapters.CustomArrayAdapter;
 import com.example.atmosfera.medicamentosapp.pojo.Aviso;
 
 import java.util.ArrayList;
@@ -22,7 +22,7 @@ public class RegistroFragment extends Fragment {
     private ArrayList<Aviso> listaAvisosRegistro;
     private ListView lvRegistro;
 
-    private CustomAdapter caRegistro;
+    private CustomArrayAdapter caRegistro;
 
 
     @Nullable
@@ -59,7 +59,7 @@ public class RegistroFragment extends Fragment {
 
         listaAvisosRegistro.clear();
 
-        caRegistro = new CustomAdapter(getContext(), lista);
+        caRegistro = new CustomArrayAdapter(getContext(), lista);
 
         lvRegistro.setAdapter(caRegistro);
 

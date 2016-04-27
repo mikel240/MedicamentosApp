@@ -10,17 +10,12 @@ import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.EditText;
 import android.widget.Spinner;
-import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.atmosfera.medicamentosapp.adapters.ViewPagerAdapter;
-import com.example.atmosfera.medicamentosapp.fragments.DashboardFragment;
 import com.example.atmosfera.medicamentosapp.fragments.Image1SliderFragment;
 import com.example.atmosfera.medicamentosapp.fragments.Image2SliderFragment;
 import com.example.atmosfera.medicamentosapp.fragments.Image3SliderFragment;
-import com.example.atmosfera.medicamentosapp.fragments.RegistroFragment;
-import com.example.atmosfera.medicamentosapp.fragments.SettingsFragment;
-import com.example.atmosfera.medicamentosapp.fragments.TomarHoyFragment;
 
 public class AddFormActivity extends AppCompatActivity {
 
