@@ -17,11 +17,33 @@ import com.example.atmosfera.medicamentosapp.fragments.DashboardFragment;
 import com.example.atmosfera.medicamentosapp.fragments.RegistroFragment;
 import com.example.atmosfera.medicamentosapp.fragments.SettingsFragment;
 import com.example.atmosfera.medicamentosapp.fragments.TomarHoyFragment;
+import com.example.atmosfera.medicamentosapp.pojo.Aviso;
+
+import java.util.ArrayList;
 
 public class MainActivity extends AppCompatActivity {
 
     private ViewPager viewPager;
     private TabLayout tabLayout;
+
+    private ArrayList<Aviso> listaAvisosHoy;
+    private ArrayList<Aviso> listaAvisos;
+
+    public ArrayList<Aviso> getListaAvisosHoy() {
+        return listaAvisosHoy;
+    }
+
+    public void setListaAvisosHoy(ArrayList<Aviso> listaAvisosHoy) {
+        this.listaAvisosHoy = listaAvisosHoy;
+    }
+
+    public ArrayList<Aviso> getListaAvisos() {
+        return listaAvisos;
+    }
+
+    public void setListaAvisos(ArrayList<Aviso> listaAvisos) {
+        this.listaAvisos = listaAvisos;
+    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

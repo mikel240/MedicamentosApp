@@ -1,12 +1,12 @@
 package com.example.atmosfera.medicamentosapp.pojo;
 
-
 public class Aviso {
     private int idAviso;
     private int idMedicamento;
     private String fechaAviso;
     private String horaAviso;
     private boolean tomado;
+    private Medicamento medicamento;
 
     public Aviso() {
 
@@ -58,5 +58,13 @@ public class Aviso {
 
     public void setTomado(boolean tomado) {
         this.tomado = tomado;
+    }
+
+    public Medicamento getMedicamento() {
+        return medicamento;
+    }
+
+    public void setMedicamento(Medicamento medicamento) {
+        this.medicamento = medicamento;
     }
 }

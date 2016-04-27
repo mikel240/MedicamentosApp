@@ -40,39 +40,40 @@
     <string name="horario_txt">Horario Primera Ingesta</string>
     <string name="btn_selecc">Seleccionar</string>
     <string name="campo_selecc_hora_vacio">Introduzca la hora de la primera ingesta</string>
+    <string name="msg_errror_add_medicament">No se ha podido añadir el medicamento</string>
+
 
     <string-array name="intervalos_array">
-        <item name="4">4 horas</item>
-        <item name="6">6 horas</item>
-        <item name="8">8 horas</item>
-        <item name="12">12 horas</item>
-        <item name="24">1 día</item>
-        <item name="168">1 semana</item>
-        <item name="360">15 días</item>
-        <item name="720">1 mes</item>
+        <item>4 horas</item>
+        <item>6 horas</item>
+        <item>8 horas</item>
+        <item>12 horas</item>
+        <item>1 día</item>
+        <item>1 semana</item>
     </string-array>
 
     <string-array name="intervalos_array_values" translatable="false">
-        <item name="">4</item>
+        <item>4</item>
         <item>6</item>
         <item>8</item>
         <item>12</item>
         <item>24</item>
         <item>168</item>
-        <item>360</item>
-        <item>720</item>
     </string-array>
 
     <string-array name="duracion_array">
+        <item name="3">3 días</item>
+        <item name="5">5 días</item>
         <item name="7">1 semana</item>
         <item name="15">15 días</item>
         <item name="30">1 mes</item>
         <item name="180">6 meses</item>
         <item name="365">1 año</item>
-        <item name="1000">Indefinida</item>
     </string-array>
 
     <string-array name="duracion_array_values" translatable="false">
+        <item>3</item>
+        <item>5</item>
         <item>7</item>
         <item>15</item>
         <item>30</item>

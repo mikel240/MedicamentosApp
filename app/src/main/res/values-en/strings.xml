@@ -22,4 +22,24 @@
     <string name="txt_via">Form of administration</string>
     <string name="txt_via_land">Form: </string>
     <string name="via_form_add">Form of administration</string>
+    <string name="msg_errror_add_medicament">The medicament could not be added</string>
+
+    <string-array name="intervalos_array">
+        <item>4 hours</item>
+        <item>6 hours</item>
+        <item>8 hours</item>
+        <item>12 hours</item>
+        <item>1 day</item>
+        <item>1 week</item>
+    </string-array>
+
+    <string-array name="duracion_array">
+        <item name="3">3 days</item>
+        <item name="5">5 days</item>
+        <item name="7">1 week</item>
+        <item name="15">15 days</item>
+        <item name="30">1 month</item>
+        <item name="180">6 months</item>
+        <item name="365">1 year</item>
+    </string-array>
 </resources>

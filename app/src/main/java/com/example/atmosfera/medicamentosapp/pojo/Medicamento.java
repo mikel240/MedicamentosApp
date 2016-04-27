@@ -1,5 +1,7 @@
 package com.example.atmosfera.medicamentosapp.pojo;
 
+import java.util.ArrayList;
+
 public class Medicamento {
 
     private int idMedicamento;
@@ -7,23 +9,25 @@ public class Medicamento {
     private int forma; //0=Pastillas 1=Inyeccion 2=Jarabe
     private String via;
     private String horaPrimeraIngesta;
-    private String fechaInicioToma;
+    private String fechaInicioIngesta;
     private int duracion;
     private int intervalo;
+    private ArrayList<Aviso> listaAvisos;
 
     public Medicamento() {
-
+        this.listaAvisos = new ArrayList<>();
     }
 
-    public Medicamento(int idMedicamento, String nombre, int forma, String via, String horaPrimeraIngesta, String fechaInicioToma, int duracion, int intervalo) {
+    public Medicamento(int idMedicamento, String nombre, int forma, String via, String horaPrimeraIngesta, String fechaInicioIngesta, int duracion, int intervalo) {
         this.idMedicamento = idMedicamento;
         this.nombre = nombre;
         this.forma = forma;
         this.via = via;
         this.horaPrimeraIngesta = horaPrimeraIngesta;
-        this.fechaInicioToma = fechaInicioToma;
+        this.fechaInicioIngesta = fechaInicioIngesta;
         this.duracion = duracion;
         this.intervalo = intervalo;
+        this.listaAvisos = new ArrayList<>();
     }
 
     public int getIdMedicamento() {
@@ -66,12 +70,12 @@ public class Medicamento {
         this.horaPrimeraIngesta = horaPrimeraIngesta;
     }
 
-    public String getFechaInicioToma() {
-        return fechaInicioToma;
+    public String getFechaInicioIngesta() {
+        return fechaInicioIngesta;
     }
 
-    public void setFechaInicioToma(String fechaInicioToma) {
-        this.fechaInicioToma = fechaInicioToma;
+    public void setFechaInicioIngesta(String fechaInicioIngesta) {
+        this.fechaInicioIngesta = fechaInicioIngesta;
     }
 
     public int getDuracion() {
@@ -88,5 +92,21 @@ public class Medicamento {
 
     public void setIntervalo(int intervalo) {
         this.intervalo = intervalo;
+    }
+
+    public void setListaAvisos(ArrayList<Aviso> listaAvisos) {
+        this.listaAvisos = listaAvisos;
+    }
+
+    public ArrayList<Aviso> getListaAvisos() {
+        return this.listaAvisos;
+    }
+
+    public void addAviso(Aviso aviso) {
+        this.listaAvisos.add(aviso);
+    }
+
+    public void addListaAvisos(ArrayList<Aviso> listaAvisos) {
+        this.listaAvisos.addAll(listaAvisos);
     }
 }

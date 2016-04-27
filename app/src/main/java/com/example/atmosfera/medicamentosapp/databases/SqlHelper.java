@@ -7,8 +7,11 @@ import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 
 import com.example.atmosfera.medicamentosapp.pojo.Aviso;
+import com.example.atmosfera.medicamentosapp.pojo.Medicamento;
 
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 
 public class SqlHelper extends SQLiteOpenHelper {
 
@@ -34,6 +37,7 @@ public class SqlHelper extends SQLiteOpenHelper {
 
     // Singleton pattern to centralize access to the database
     private static SqlHelper instance;
+
 
     public synchronized static SqlHelper getInstance(Context context) {
         if (instance == null) {
@@ -77,59 +81,137 @@ public class SqlHelper extends SQLiteOpenHelper {
     }
 
 
-    public ArrayList<Aviso> getAvisosFecha(String fecha) {
+    public ArrayList<Aviso> getAvisos() {
 
         ArrayList<Aviso> result = new ArrayList<>();
-        Aviso item;
+        Aviso iAviso;
+        Medicamento iMedicamento;
 
         // Get access to the database in read mode
         SQLiteDatabase db = getReadableDatabase();
 
         // Query the table to get the text and author for all existing entries
-        Cursor cursor = db.rawQuery("SELECT * FROM medicamento WHERE fechaAviso='" + fecha + "';", null);
+        Cursor c = db.rawQuery("SELECT * " +
+                        "FROM aviso A, medicamento M " +
+                        "WHERE A.idMedicamento=M.idMedicamento " +
+                        "ORDER BY A.fechaAviso ASC, A.horaAviso ASC, A.idMedicamento ASC;",
+                null);
 
         // Go through the resulting cursor
-        while (cursor.moveToNext()) {
+        while (c.moveToNext()) {
 
             // Create a object for the given entry in the database
-            item = new Aviso();
-            item.setIdAviso(cursor.getInt(0));
-            item.setIdMedicamento(cursor.getInt(1));
-            item.setFechaAviso(cursor.getString(2));
-            item.setHoraAviso(cursor.getString(3));
-            item.setTomado(cursor.getInt(4) == 1);
+            iAviso = new Aviso();
+            iMedicamento = new Medicamento();
+
+            iMedicamento.setIdMedicamento(c.getInt(c.getColumnIndex("M.idMedicamento")));
+            iMedicamento.setNombre(c.getString(c.getColumnIndex("M.nombre")));
+            iMedicamento.setForma(c.getInt(c.getColumnIndex("M.forma")));
+            iMedicamento.setVia(c.getString(c.getColumnIndex("M.via")));
+            iMedicamento.setHoraPrimeraIngesta(c.getString(c.getColumnIndex("M.horaPrimeraIngesta")));
+            iMedicamento.setFechaInicioIngesta(c.getString(c.getColumnIndex("M.fechaInicioIngesta")));
+            iMedicamento.setDuracion(c.getInt(c.getColumnIndex("M.duracion")));
+            iMedicamento.setIntervalo(c.getInt(c.getColumnIndex("M.intervalo")));
+
+            iAviso.setIdAviso(c.getInt(c.getColumnIndex("A.idAviso")));
+            iAviso.setIdMedicamento(c.getInt(c.getColumnIndex("A.idMedicamento")));
+            iAviso.setFechaAviso(c.getString(c.getColumnIndex("A.fechaAviso")));
+            iAviso.setHoraAviso(c.getString(c.getColumnIndex("A.horaAviso")));
+            iAviso.setTomado(c.getInt(c.getColumnIndex("A.tomado")) == 1);
+
+            iAviso.setMedicamento(iMedicamento);
 
             // Add the object to the result list
-            result.add(item);
+            result.add(iAviso);
         }
 
         // Close cursor and database helper
-        cursor.close();
+        c.close();
         db.close();
 
         return result;
     }
 
 
-    public void addMedicamento(String nombre, int forma, String via, String horaPrimeraIngesta, String fechaInicioIngesta, int duracion, int intervalo) {
+    public ArrayList<Aviso> getAvisosHoy() {
+
+        SimpleDateFormat currentDate = new SimpleDateFormat("yyyy-MM-dd");
+        Date today = new Date();
+        String fechaHoy = currentDate.format(today);
+
+        ArrayList<Aviso> result = new ArrayList<>();
+        Aviso iAviso;
+        Medicamento iMedicamento;
+
+        // Get access to the database in read mode
+        SQLiteDatabase db = getReadableDatabase();
+
+        // Query the table to get the text and author for all existing entries
+        Cursor c = db.rawQuery("SELECT * " +
+                        "FROM aviso A, medicamento M " +
+                        "WHERE A.idMedicamento=M.idMedicamento " +
+                        "AND A.fechaAviso='" + fechaHoy + "' " +
+                        "ORDER BY A.fechaAviso ASC, A.horaAviso ASC, A.idMedicamento ASC;",
+                null);
+
+        // Go through the resulting cursor
+        while (c.moveToNext()) {
+
+            // Create a object for the given entry in the database
+            iAviso = new Aviso();
+            iMedicamento = new Medicamento();
+
+            iMedicamento.setIdMedicamento(c.getInt(c.getColumnIndex("M.idMedicamento")));
+            iMedicamento.setNombre(c.getString(c.getColumnIndex("M.nombre")));
+            iMedicamento.setForma(c.getInt(c.getColumnIndex("M.forma")));
+            iMedicamento.setVia(c.getString(c.getColumnIndex("M.via")));
+            iMedicamento.setHoraPrimeraIngesta(c.getString(c.getColumnIndex("M.horaPrimeraIngesta")));
+            iMedicamento.setFechaInicioIngesta(c.getString(c.getColumnIndex("M.fechaInicioIngesta")));
+            iMedicamento.setDuracion(c.getInt(c.getColumnIndex("M.duracion")));
+            iMedicamento.setIntervalo(c.getInt(c.getColumnIndex("M.intervalo")));
+
+            iAviso.setIdAviso(c.getInt(c.getColumnIndex("A.idAviso")));
+            iAviso.setIdMedicamento(c.getInt(c.getColumnIndex("A.idMedicamento")));
+            iAviso.setFechaAviso(c.getString(c.getColumnIndex("A.fechaAviso")));
+            iAviso.setHoraAviso(c.getString(c.getColumnIndex("A.horaAviso")));
+            iAviso.setTomado(c.getInt(c.getColumnIndex("A.tomado")) == 1);
+
+            iAviso.setMedicamento(iMedicamento);
+
+            // Add the object to the result list
+            result.add(iAviso);
+        }
+
+        // Close cursor and database helper
+        c.close();
+        db.close();
+
+        return result;
+    }
+
+
+    public int addMedicamento(String nombre, int forma, String via, String horaPrimeraIngesta, String fechaInicioIngesta, int duracion, int intervalo) {
+
+        int id = -1;
 
         // Get access to the database in write mode
         SQLiteDatabase db = getWritableDatabase();
 
         // Insert the new item into the table (autoincremental id)
-        ContentValues values = new ContentValues();
-        values.put("nombre", nombre);
-        values.put("forma", forma);
-        values.put("via", via);
-        values.put("horaPrimeraIngesta", horaPrimeraIngesta);
-        values.put("fechaInicioIngesta", fechaInicioIngesta);
-        values.put("duracion", duracion);
-        values.put("intervalo", intervalo);
-        int medicamento = (int) db.insert("medicamento", null, values);
+        ContentValues cv = new ContentValues();
+        cv.put("nombre", nombre);
+        cv.put("forma", forma);
+        cv.put("via", via);
+        cv.put("horaPrimeraIngesta", horaPrimeraIngesta);
+        cv.put("fechaInicioIngesta", fechaInicioIngesta);
+        cv.put("duracion", duracion);
+        cv.put("intervalo", intervalo);
+        id = (int) db.insert("medicamento", null, cv);
 
         // Close the database helper
         db.close();
-        createAvisosMedicamento(medicamento, horaPrimeraIngesta, fechaInicioIngesta, duracion, intervalo);
+
+        return id;
     }
 
     public void editMedicamento(int medicamento, String nombre, int forma, String via, String horaPrimeraIngesta, String fechaInicioIngesta, int duracion, int intervalo) {
@@ -138,16 +220,16 @@ public class SqlHelper extends SQLiteOpenHelper {
         SQLiteDatabase db = getWritableDatabase();
 
         // Update item
-        ContentValues values = new ContentValues();
-        values.put("nombre", nombre);
-        values.put("forma", forma);
-        values.put("via", via);
-        values.put("horaPrimeraIngesta", horaPrimeraIngesta);
-        values.put("fechaInicioIngesta", fechaInicioIngesta);
-        values.put("duracion", duracion);
-        values.put("intervalo", intervalo);
+        ContentValues cv = new ContentValues();
+        cv.put("nombre", nombre);
+        cv.put("forma", forma);
+        cv.put("via", via);
+        cv.put("horaPrimeraIngesta", horaPrimeraIngesta);
+        cv.put("fechaInicioIngesta", fechaInicioIngesta);
+        cv.put("duracion", duracion);
+        cv.put("intervalo", intervalo);
 
-        db.update("medicamento", values, "idMedicamento=" + medicamento, null);
+        db.update("medicamento", cv, "idMedicamento=" + medicamento, null);
 
         // Close the database helper
         db.close();
@@ -162,12 +244,12 @@ public class SqlHelper extends SQLiteOpenHelper {
         SQLiteDatabase db = getWritableDatabase();
 
         // Update item
-        ContentValues values = new ContentValues();
-        values.put("fechaAviso", fecha);
-        values.put("horaAviso", hora);
-        values.put("tomado", tomado);
+        ContentValues cv = new ContentValues();
+        cv.put("fechaAviso", fecha);
+        cv.put("horaAviso", hora);
+        cv.put("tomado", tomado);
 
-        db.update("medicamento", values, "idAviso=" + aviso, null);
+        db.update("medicamento", cv, "idAviso=" + aviso, null);
 
         // Close the database helper
         db.close();
@@ -186,7 +268,7 @@ public class SqlHelper extends SQLiteOpenHelper {
     }
 
 
-    private void createAvisosMedicamento(int medicamento, String horaInicio, String fechaInicio, int duracion, int intervalo) {
+    public void createAvisosMedicamento(int medicamento, String horaInicio, String fechaInicio, int duracion, int intervalo) {
 
         // Get access to the database in write mode
         SQLiteDatabase db = getWritableDatabase();
@@ -206,7 +288,7 @@ public class SqlHelper extends SQLiteOpenHelper {
 
         String fechaDB, horaDB, auxM, auxD, auxH, auxMin;
 
-        ContentValues values;
+        ContentValues cv;
 
         int i = 0;
         while (i < (duracion * 24)) {
@@ -248,13 +330,13 @@ public class SqlHelper extends SQLiteOpenHelper {
 
             //System.out.println("VASIL: (medicamento, fechaDB, horaDB): (" + medicamento + ", " + fechaDB + ", " + horaDB + ")");
 
-            values = new ContentValues();
-            values.put("idMedicamento", medicamento);
-            values.put("fechaAviso", fechaDB);
-            values.put("horaAviso", horaDB);
-            values.put("tomado", 0);
+            cv = new ContentValues();
+            cv.put("idMedicamento", medicamento);
+            cv.put("fechaAviso", fechaDB);
+            cv.put("horaAviso", horaDB);
+            cv.put("tomado", 0);
 
-            db.insert("aviso", null, values);
+            db.insert("aviso", null, cv);
             i = i + intervalo;
         }//fin while
 
@@ -265,12 +347,12 @@ public class SqlHelper extends SQLiteOpenHelper {
 
     public void tester() {
         SQLiteDatabase db = getReadableDatabase();
-        Cursor cursor = db.rawQuery("SELECT fechaAviso, datetime(fechaAviso) FROM aviso;", null);
+        Cursor c = db.rawQuery("SELECT fechaAviso, datetime(fechaAviso) FROM aviso;", null);
         int i = 0;
-        while (cursor.moveToNext()) {
-            System.out.println("Vasil: " + (i++) + " " + cursor.getString(0) + " " + cursor.getString(1));
+        while (c.moveToNext()) {
+            System.out.println("Vasil: " + (i++) + " " + c.getString(0) + " " + c.getString(1));
         }
-        cursor.close();
+        c.close();
         db.close();
     }
 }

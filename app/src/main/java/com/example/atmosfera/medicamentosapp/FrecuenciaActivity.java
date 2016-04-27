@@ -2,6 +2,7 @@ package com.example.atmosfera.medicamentosapp;
 
 import android.app.Dialog;
 import android.app.TimePickerDialog;
+import android.database.sqlite.SQLiteOpenHelper;
 import android.support.v4.view.ViewPager;
 import android.content.Intent;
 import android.content.res.Configuration;
@@ -22,6 +23,7 @@ import android.widget.TextView;
 import android.widget.TimePicker;
 import android.widget.Toast;
 
+import java.sql.SQLClientInfoException;
 import java.util.Locale;
 
 import com.example.atmosfera.medicamentosapp.databases.SqlHelper;
@@ -141,9 +143,14 @@ public class FrecuenciaActivity extends AppCompatActivity {
             int duracion = Integer.valueOf(duraciones[duracionPos]);
             int intervalo = Integer.valueOf(intervalos[intervaloPos]);
 
-            SqlHelper.getInstance(this).addMedicamento(nombre, forma, via, horaPrimeraIngesta, fechaInicio, duracion, intervalo);
+            int res = SqlHelper.getInstance(this).addMedicamento(nombre, forma, via, horaPrimeraIngesta, fechaInicio, duracion, intervalo);
 
-            //setLocale("en");
+            if (res == -1) {
+                Toast.makeText(FrecuenciaActivity.this, getResources().getString(R.string.msg_errror_add_medicament), Toast.LENGTH_LONG).show();
+            } else {
+                SqlHelper.getInstance(this).createAvisosMedicamento(res, horaPrimeraIngesta, fechaInicio, duracion, intervalo);
+            }
+
         } else
             Toast.makeText(FrecuenciaActivity.this, getResources().getString(R.string.campo_selecc_hora_vacio), Toast.LENGTH_LONG).show();
     }
