@@ -7,6 +7,11 @@
     <color name="navigationBarColor">#000000</color>
     <color name="colorAccent">#c8e8ff</color>
 
+    <color name="colorFondoMedicamento">#fff</color>
+
+    <color name="colorTextoOscuro">#150b0b</color>
+    <color name="colorTextoClaro">#2682ac</color>
+
 
     <!-- color texto selectores -->
     <color name="text_non_selected">#1668a5</color>

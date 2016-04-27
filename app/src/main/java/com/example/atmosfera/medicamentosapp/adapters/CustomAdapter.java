@@ -36,15 +36,16 @@ public class CustomAdapter extends ArrayAdapter<Object> {
         Object o = items.get(position);
         if (o != null) {
             if (o instanceof String) {
-                String head = (String) o;
+                String fecha = (String) o;
                 v = layoutInflater.inflate(R.layout.display_medication_head, null);
 
-//                v.setOnClickListener(null);
-//                v.setOnLongClickListener(null);
-//                v.setLongClickable(false);
-//
+                v.setOnClickListener(null);
+                v.setOnLongClickListener(null);
+                v.setLongClickable(false);
+
                 TextView sectionView = (TextView) v.findViewById(R.id.textHora);
-                sectionView.setText(head);
+                String fechaAux = fecha.substring(8, 10) + "/" + fecha.substring(5, 7) + "/" + fecha.substring(0, 4);
+                sectionView.setText(fechaAux);
 
             } else {
                 Aviso row = (Aviso) o;
@@ -56,8 +57,21 @@ public class CustomAdapter extends ArrayAdapter<Object> {
                 TextView hora = (TextView) v.findViewById(R.id.textHora);
 
                 imForma.setImageResource(IMGS[row.getMedicamento().getForma()]);
-                nombre.setText(row.getIdMedicamento() + ": " + row.getMedicamento().getNombre());
-                frecuencia.setText("Cada " + row.getMedicamento().getIntervalo() + " horas");
+                nombre.setText(row.getMedicamento().getNombre());
+
+                int iAux = row.getMedicamento().getIntervalo();
+                String sAux ="";
+
+                if (iAux  < 24){
+                    sAux = iAux + " horas";
+                } else if (iAux == 24){
+                    sAux = "día";
+                } else {
+                    sAux = (iAux / 24) + " días";
+                }
+
+
+                frecuencia.setText("Cada " +  sAux);
                 hora.setText(row.getHoraAviso());
             }
         }
